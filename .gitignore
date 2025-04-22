@@ -1,0 +1,14 @@
+## C temp files ##
+
+*.out
+*.o
+*.a
+
+## Help files ##
+
+corewar_bin
+
+## champions ##
+
+*.cor
+*.s
