@@ -22,5 +22,5 @@ int print_help(void)
     write(1, " When no address is specified, optimize the adresses so", 54);
     write(1, " that the processes are as far away from each other as", 53);
     write(1, "possible. The addresses are MEM_SIZE modulo.\n", 45);
-    return -1;
+    return 0;
 }

@@ -6,7 +6,10 @@
 ##
 
 SRC	=	src/op.c	\
-		src/init_war.c
+		src/parsing/init_war.c	\
+		src/parsing/print_help.c	\
+		src/lib/my_strcmp.c
+
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)
 NAME	=	corewar
