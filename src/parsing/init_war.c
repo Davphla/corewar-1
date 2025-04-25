@@ -42,21 +42,20 @@ static int parse_flags(int ac, char *argv[], int *i)
 // Parse args and check for flags //
 static int parse_args(int ac, char *argv[], war_t *war)
 {
-    champion_t champ = {0};
+    champion_t champ[4] = {0};
     int ret = 0;
-    char *champions[4] = {0};
     int index_champ = 0;
 
     for (int i = 0; i < ac; i++) {
         if (argv[i][0] == '-')
             ret = parse_flags(ac, argv, &i);
         else {
-            champions[index_champ] = argv[i];
+            champ[index_champ].name = argv[i];
             index_champ++;
         }
         if (ret != 0)
             return -1;
-        if (index_champ + 1 > MAX_PLAYER || index_champ + 1 < MIN_PLAYER)
+        if (MAX_PLAYER < index_champ - 1)
             return -1;
     }
     return 1;
