@@ -3,6 +3,7 @@
 *.out
 *.o
 *.a
+corewar
 
 ## Help files ##
 
