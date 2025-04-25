@@ -9,8 +9,11 @@
 
 int main(int ac, char *argv[])
 {
-    war_t *war = init_war(ac, argv);
+    war_t *war = NULL;
 
+    if (ac == 2 && my_strcmp(argv[1], "-h") == 0)
+        print_help();
+    init_war(ac, argv);
     if (war == NULL)
         return 84;
     return 0;

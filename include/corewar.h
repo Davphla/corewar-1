@@ -9,6 +9,7 @@
     #define COREWAR_H_
 
     #include "op.h"
+    #include "minilib.h"
 
     #include <unistd.h>
     #include <stdlib.h>
@@ -35,8 +36,9 @@ typedef struct war_s {
     champion_t *champ;
 } war_t;
 
-// init wat struct //
+// Parsing functions //
 war_t *init_war(int ac, char *argv[]);
+int print_help(void);
 
 
 #endif /* COREWAR_H_ */
