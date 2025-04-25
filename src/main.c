@@ -5,7 +5,13 @@
 ** Main file
 */
 
-int main()
+#include "corewar.h"
+
+int main(int ac, char *argv[])
 {
-    return 84;
+    war_t *war = init_war(ac, argv);
+
+    if (war == NULL)
+        return 84;
+    return 0;
 }

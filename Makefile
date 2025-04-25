@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-SRC	=
+SRC	=	src/op.c	\
+		src/init_war.c
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)
 NAME	=	corewar

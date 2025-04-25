@@ -10,8 +10,33 @@
 
     #include "op.h"
 
+    #include <unistd.h>
+    #include <stdlib.h>
+
+    #define MAX_PLAYER 4
+    #define MIN_PLAYER 2
+
+// Struct for every champions personnals data //
 typedef struct champion_s {
+    char *name;
     int reg[REG_NUMBER];
+    int PC;
+    int clock;
+    int num_flag;
+    int adress_flag;
 } champion_t;
+
+// Struct info with every usefull global data //
+typedef struct war_s {
+    int cycle;
+    int dump;
+    int nb_champ;
+    char *vm;
+    champion_t *champ;
+} war_t;
+
+// init wat struct //
+war_t *init_war(int ac, char *argv[]);
+
 
 #endif /* COREWAR_H_ */
