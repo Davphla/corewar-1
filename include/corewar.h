@@ -27,7 +27,7 @@ typedef struct champion_s {
     int PC;
     int clock;
     int num_flag;
-    int adress_flag;
+    char *adress_flag;
 } champion_t;
 
 // Struct info with every usefull global data //
@@ -36,7 +36,7 @@ typedef struct war_s {
     int dump;
     int nb_champ;
     char *vm;
-    champion_t champ[4];
+    champion_t *champs[4];
 } war_t;
 
 // Parsing functions //

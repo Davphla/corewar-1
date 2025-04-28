@@ -7,18 +7,31 @@
 
 #include "corewar.h"
 
+static war_t *init_struct_war(void)
+{
+    war_t *war = malloc(sizeof(war_t));
+
+    if (war == NULL)
+        return NULL;
+    war->cycle = 0;
+    war->dump = -1;
+    war->nb_champ = 0;
+    war->vm = NULL;
+    return war;
+}
+
 static int verif_champ(champion_t *champ[4], war_t *war)
 {
     int i = 0;
 
-    for (; i < MAX_P; i++)
+    for (; i < war->nb_champ; i++) {
         if (champ[i] == NULL)
             return -1;
-    war->nb_champ = i;
+    }
     return 0;
 }
 
-static int check_dump_flag(int ac, char *argv[], int *i, war_t *war)
+static int check_dump_flag(char *argv[], int *i, war_t *war)
 {
     int dump_cycle = 0;
 
@@ -28,32 +41,37 @@ static int check_dump_flag(int ac, char *argv[], int *i, war_t *war)
             return -1;
         dump_cycle = dump_cycle * 10 + (argv[*i][j] - 48);
     }
+    war->dump = dump_cycle;
     return 0;
 }
 
-static int check_a_flag(int ac, char *argv[], int *i, champion_t *champ)
+static int check_n_flag(char *argv[], int *i, champion_t *champ)
 {
-    return 0;
-}
+    int number = 0;
 
-static int check_n_flag(int ac, char *argv[], int *i, champion_t *champ)
-{
+    (*i)++;
+    for (int j = 0; j < my_strlen(argv[*i]); j++) {
+        if (argv[*i][j] < 48 || argv[*i][j] > 57)
+            return -1;
+        number = number * 10 + (argv[*i][j] - 48);
+    }
+    champ->num_flag= number;
     return 0;
 }
 
 static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
 {
-    int ac = my_arrlen(argv);
-
-    if (*i == ac - 1)
+    if (*i == my_arrlen(argv) - 1)
         return -1;
     switch (argv[*i][1]) {
         case 'd':
-            return check_dump_flag(ac, argv, i, war);
+            return check_dump_flag(argv, i, war);
         case 'a':
-            return check_a_flag(ac, argv, i, champ);
+            (*i)++;
+            champ->adress_flag = argv[*i];
+            return 0;
         case 'n':
-            return check_n_flag(ac, argv, i, champ);
+            return check_n_flag(argv, i, champ);
     }
     return 0;
 }
@@ -71,9 +89,11 @@ static int parse_args(int ac, char *argv[], war_t *war)
         else {
             champ[index_champ] = parse_champ(argv[i]);
             index_champ++;
+            war->nb_champ++;
         }
         if (ret != 0)
             return -1;
+        war->champs[index_champ - 1] = champ[index_champ - 1];
     }
     if (MAX_P < index_champ || MIN_P > index_champ ||
         verif_champ(champ, war) == -1)
@@ -84,7 +104,7 @@ static int parse_args(int ac, char *argv[], war_t *war)
 // initialize the war structure //
 war_t *init_war(int ac, char *argv[])
 {
-    war_t *war = malloc(sizeof(war_t));
+    war_t *war = init_struct_war();
     char *vm = NULL;
 
     if (war == NULL)
