@@ -7,7 +7,13 @@
 
 #include "corewar.h"
 
-#include <stdio.h>
+static int verif_champ(champion_t *champ[4])
+{
+    for (int i = 0; i < MAX_P; i++)
+        if (champ[i] == NULL)
+            return -1;
+    return 0;
+}
 
 static int check_dump_flag(int ac, char *argv[], int *i)
 {
@@ -42,7 +48,7 @@ static int parse_flags(int ac, char *argv[], int *i)
 // Parse args and check for flags //
 static int parse_args(int ac, char *argv[], war_t *war)
 {
-    champion_t champ[4] = {0};
+    champion_t *champ[4] = {0};
     int ret = 0;
     int index_champ = 0;
 
@@ -50,13 +56,13 @@ static int parse_args(int ac, char *argv[], war_t *war)
         if (argv[i][0] == '-')
             ret = parse_flags(ac, argv, &i);
         else {
-            champ[index_champ].name = argv[i];
+            champ[index_champ] = parse_champ(argv[i]);
             index_champ++;
         }
         if (ret != 0)
             return -1;
     }
-    if (MAX_PLAYER < index_champ || MIN_PLAYER > index_champ)
+    if (MAX_P < index_champ || MIN_P > index_champ || verif_champ(champ) == -1)
         return -1;
     return 1;
 }

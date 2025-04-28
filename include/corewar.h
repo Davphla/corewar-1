@@ -13,13 +13,16 @@
 
     #include <unistd.h>
     #include <stdlib.h>
+    #include <stdio.h>
+    #include <stdbool.h>
 
-    #define MAX_PLAYER 4
-    #define MIN_PLAYER 2
+    #define MAX_P 4
+    #define MIN_P 2
 
 // Struct for every champions personnals data //
 typedef struct champion_s {
     char *name;
+    char *comment;
     int reg[REG_NUMBER];
     int PC;
     int clock;
@@ -39,6 +42,7 @@ typedef struct war_s {
 // Parsing functions //
 war_t *init_war(int ac, char *argv[]);
 int print_help(void);
+champion_t *parse_champ(char *arg);
 
 
 #endif /* COREWAR_H_ */

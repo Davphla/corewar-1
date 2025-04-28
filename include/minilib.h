@@ -9,5 +9,6 @@
     #define MINILIB_H_
 
 int my_strcmp(char *s1, char *s2);
+int my_strlen(char *str);
 
 #endif /* MINILIB_H_ */

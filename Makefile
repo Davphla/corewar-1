@@ -8,7 +8,9 @@
 SRC	=	src/op.c	\
 		src/parsing/init_war.c	\
 		src/parsing/print_help.c	\
-		src/lib/my_strcmp.c
+		src/parsing/parse_champ.c	\
+		src/lib/my_strcmp.c	\
+		src/lib/my_strlen.c
 
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)
