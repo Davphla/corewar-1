@@ -41,6 +41,8 @@ typedef struct war_s {
 
 // Parsing functions //
 war_t *init_war(int ac, char *argv[]);
+war_t *init_struct_war(void);
+champion_t **init_champ_array(void);
 int print_help(void);
 champion_t *parse_champ(char *arg);
 

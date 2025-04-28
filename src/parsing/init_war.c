@@ -7,19 +7,6 @@
 
 #include "corewar.h"
 
-static war_t *init_struct_war(void)
-{
-    war_t *war = malloc(sizeof(war_t));
-
-    if (war == NULL)
-        return NULL;
-    war->cycle = 0;
-    war->dump = -1;
-    war->nb_champ = 0;
-    war->vm = NULL;
-    return war;
-}
-
 static int verif_champ(champion_t *champ[4], war_t *war)
 {
     int i = 0;
@@ -55,7 +42,7 @@ static int check_n_flag(char *argv[], int *i, champion_t *champ)
             return -1;
         number = number * 10 + (argv[*i][j] - 48);
     }
-    champ->num_flag= number;
+    champ->num_flag = number;
     return 0;
 }
 
@@ -77,12 +64,13 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
 }
 
 // Parse args and check for flags //
-static int parse_args(int ac, char *argv[], war_t *war)
+static int parse_args(int ac, char *argv[], war_t *war, champion_t **champ)
 {
-    champion_t *champ[4] = {0};
     int ret = 0;
     int index_champ = 0;
 
+    if (champ == NULL)
+        return -1;
     for (int i = 1; i < ac; i++) {
         if (argv[i][0] == '-')
             ret = parse_flags(argv, &i, war, champ[index_champ]);
@@ -105,17 +93,17 @@ static int parse_args(int ac, char *argv[], war_t *war)
 war_t *init_war(int ac, char *argv[])
 {
     war_t *war = init_struct_war();
+    champion_t **champs = init_champ_array();
     char *vm = NULL;
 
     if (war == NULL)
         return NULL;
-    vm = malloc(sizeof(unsigned char) * MEM_SIZE);
-    if (vm == NULL) {
+    if (champs == NULL) {
         free(war);
         return NULL;
     }
     war->vm = vm;
-    if (parse_args(ac, argv, war) == -1) {
+    if (parse_args(ac, argv, war, champs) == -1) {
         free(vm);
         free(war);
         return NULL;

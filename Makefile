@@ -9,6 +9,7 @@ SRC	=	src/op.c	\
 		src/parsing/init_war.c	\
 		src/parsing/print_help.c	\
 		src/parsing/parse_champ.c	\
+		src/parsing/init_struct.c	\
 		src/lib/my_strcmp.c	\
 		src/lib/my_strlen.c	\
 		src/lib/my_arrlen.c
