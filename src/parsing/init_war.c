@@ -46,7 +46,7 @@ static int parse_args(int ac, char *argv[], war_t *war)
     int ret = 0;
     int index_champ = 0;
 
-    for (int i = 0; i < ac; i++) {
+    for (int i = 1; i < ac; i++) {
         if (argv[i][0] == '-')
             ret = parse_flags(ac, argv, &i);
         else {
@@ -55,9 +55,9 @@ static int parse_args(int ac, char *argv[], war_t *war)
         }
         if (ret != 0)
             return -1;
-        if (MAX_PLAYER < index_champ - 1)
-            return -1;
     }
+    if (MAX_PLAYER < index_champ || MIN_PLAYER > index_champ)
+        return -1;
     return 1;
 }
 
@@ -69,7 +69,7 @@ war_t *init_war(int ac, char *argv[])
 
     if (war == NULL)
         return NULL;
-    vm = malloc(sizeof(char) * MEM_SIZE);
+    vm = malloc(sizeof(unsigned char) * MEM_SIZE);
     if (vm == NULL) {
         free(war);
         return NULL;
