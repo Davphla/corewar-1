@@ -36,7 +36,7 @@ typedef struct war_s {
     int dump;
     int nb_champ;
     char *vm;
-    champion_t *champ;
+    champion_t champ[4];
 } war_t;
 
 // Parsing functions //

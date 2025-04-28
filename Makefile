@@ -10,7 +10,8 @@ SRC	=	src/op.c	\
 		src/parsing/print_help.c	\
 		src/parsing/parse_champ.c	\
 		src/lib/my_strcmp.c	\
-		src/lib/my_strlen.c
+		src/lib/my_strlen.c	\
+		src/lib/my_arrlen.c
 
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)

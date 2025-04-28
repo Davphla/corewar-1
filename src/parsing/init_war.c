@@ -7,40 +7,53 @@
 
 #include "corewar.h"
 
-static int verif_champ(champion_t *champ[4])
+static int verif_champ(champion_t *champ[4], war_t *war)
 {
-    for (int i = 0; i < MAX_P; i++)
+    int i = 0;
+
+    for (; i < MAX_P; i++)
         if (champ[i] == NULL)
             return -1;
+    war->nb_champ = i;
     return 0;
 }
 
-static int check_dump_flag(int ac, char *argv[], int *i)
+static int check_dump_flag(int ac, char *argv[], int *i, war_t *war)
+{
+    int dump_cycle = 0;
+
+    (*i)++;
+    for (int j = 0; j < my_strlen(argv[*i]); j++) {
+        if (argv[*i][j] < 48 || argv[*i][j] > 57)
+            return -1;
+        dump_cycle = dump_cycle * 10 + (argv[*i][j] - 48);
+    }
+    return 0;
+}
+
+static int check_a_flag(int ac, char *argv[], int *i, champion_t *champ)
 {
     return 0;
 }
 
-static int check_a_flag(int ac, char *argv[], int *i)
+static int check_n_flag(int ac, char *argv[], int *i, champion_t *champ)
 {
     return 0;
 }
 
-static int check_n_flag(int ac, char *argv[], int *i)
+static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
 {
-    return 0;
-}
+    int ac = my_arrlen(argv);
 
-static int parse_flags(int ac, char *argv[], int *i)
-{
     if (*i == ac - 1)
         return -1;
     switch (argv[*i][1]) {
         case 'd':
-            return check_dump_flag(ac, argv, i);
+            return check_dump_flag(ac, argv, i, war);
         case 'a':
-            return check_a_flag(ac, argv, i);
+            return check_a_flag(ac, argv, i, champ);
         case 'n':
-            return check_n_flag(ac, argv, i);
+            return check_n_flag(ac, argv, i, champ);
     }
     return 0;
 }
@@ -54,7 +67,7 @@ static int parse_args(int ac, char *argv[], war_t *war)
 
     for (int i = 1; i < ac; i++) {
         if (argv[i][0] == '-')
-            ret = parse_flags(ac, argv, &i);
+            ret = parse_flags(argv, &i, war, champ[index_champ]);
         else {
             champ[index_champ] = parse_champ(argv[i]);
             index_champ++;
@@ -62,7 +75,8 @@ static int parse_args(int ac, char *argv[], war_t *war)
         if (ret != 0)
             return -1;
     }
-    if (MAX_P < index_champ || MIN_P > index_champ || verif_champ(champ) == -1)
+    if (MAX_P < index_champ || MIN_P > index_champ ||
+        verif_champ(champ, war) == -1)
         return -1;
     return 1;
 }
