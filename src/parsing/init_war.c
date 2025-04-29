@@ -7,12 +7,12 @@
 
 #include "corewar.h"
 
-static int verif_champ(champion_t *champ[4], war_t *war)
+static int verif_champ(war_t *war)
 {
     int i = 0;
 
     for (; i < war->nb_champ; i++) {
-        if (champ[i] == NULL)
+        if (war->champs[i] == NULL)
             return -1;
     }
     return 0;
@@ -64,27 +64,24 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
 }
 
 // Parse args and check for flags //
-static int parse_args(int ac, char *argv[], war_t *war, champion_t **champ)
+static int parse_args(int ac, char *argv[], war_t *war)
 {
     int ret = 0;
     int index_champ = 0;
 
-    if (champ == NULL)
-        return -1;
     for (int i = 1; i < ac; i++) {
         if (argv[i][0] == '-')
-            ret = parse_flags(argv, &i, war, champ[index_champ]);
+            ret = parse_flags(argv, &i, war, war->champs[index_champ]);
         else {
-            champ[index_champ] = parse_champ(argv[i]);
+            parse_champ(argv[i], war->champs[index_champ]);
             index_champ++;
             war->nb_champ++;
         }
         if (ret != 0)
             return -1;
-        war->champs[index_champ - 1] = champ[index_champ - 1];
     }
     if (MAX_P < index_champ || MIN_P > index_champ ||
-        verif_champ(champ, war) == -1)
+        verif_champ(war) == -1)
         return -1;
     return 1;
 }
@@ -93,17 +90,17 @@ static int parse_args(int ac, char *argv[], war_t *war, champion_t **champ)
 war_t *init_war(int ac, char *argv[])
 {
     war_t *war = init_struct_war();
-    champion_t **champs = init_champ_array();
     char *vm = NULL;
 
     if (war == NULL)
         return NULL;
-    if (champs == NULL) {
+    war->champs = init_champ_array();
+    if (war->champs == NULL) {
         free(war);
         return NULL;
     }
     war->vm = vm;
-    if (parse_args(ac, argv, war, champs) == -1) {
+    if (parse_args(ac, argv, war) == -1) {
         free(vm);
         free(war);
         return NULL;

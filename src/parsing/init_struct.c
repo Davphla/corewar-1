@@ -36,20 +36,16 @@ champion_t **init_champ_array(void)
 
     if (champ == NULL)
         return NULL;
-    *champ = malloc(sizeof(champion_t) * 4);
-    if (*champ == NULL) {
-        free(champ);
-        return NULL;
-    }
     for (int i = 0; i < MAX_P; i++) {
-        (*champ)->name = NULL;
-        (*champ)->comment = NULL;
+        champ[i] = malloc(sizeof(champion_t));
+        champ[i]->name = NULL;
+        champ[i]->comment = NULL;
         for (int j = 0; j < REG_NUMBER; j++)
-            (*champ)->reg[j] = 0;
-        (*champ)->PC = 0;
-        (*champ)->clock = 0;
-        (*champ)->num_flag = i;
-        (*champ)->adress_flag = NULL;
+            champ[i]->reg[j] = j;
+        champ[i]->PC = 0;
+        champ[i]->clock = 0;
+        champ[i]->num_flag = i;
+        champ[i]->adress_flag = NULL;
     }
     return champ;
 }

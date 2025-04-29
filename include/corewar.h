@@ -36,7 +36,7 @@ typedef struct war_s {
     int dump;
     int nb_champ;
     char *vm;
-    champion_t *champs[4];
+    champion_t **champs;
 } war_t;
 
 // Parsing functions //
@@ -44,7 +44,7 @@ war_t *init_war(int ac, char *argv[]);
 war_t *init_struct_war(void);
 champion_t **init_champ_array(void);
 int print_help(void);
-champion_t *parse_champ(char *arg);
+champion_t *parse_champ(char *arg, champion_t *champ);
 
 
 #endif /* COREWAR_H_ */
