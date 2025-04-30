@@ -16,5 +16,11 @@ int main(int ac, char *argv[])
     war = init_war(ac, argv);
     if (war == NULL)
         return 84;
+    war_correct_nb(war);
+    if (corewar(war) == -1) {
+        free_war(war);
+        return 84;
+    }
+    free_war(war);
     return 0;
 }

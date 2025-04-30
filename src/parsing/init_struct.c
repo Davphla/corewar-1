@@ -11,21 +11,19 @@
 war_t *init_struct_war(void)
 {
     war_t *war = malloc(sizeof(war_t));
-    char *vm = NULL;
 
     if (war == NULL)
         return NULL;
-    vm = malloc(sizeof(unsigned char) * MEM_SIZE);
-    if (vm == NULL) {
+    war->vm = malloc(sizeof(unsigned char) * MEM_SIZE);
+    if (war->vm == NULL) {
         free(war);
         return NULL;
     }
     for (int i = 0; i < MEM_SIZE; i++)
-        vm[i] = '0';
+        war->vm[i] = '0';
     war->cycle = 0;
     war->dump = -1;
     war->nb_champ = 0;
-    war->vm = vm;
     return war;
 }
 

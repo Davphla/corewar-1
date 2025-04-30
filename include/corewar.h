@@ -35,9 +35,11 @@ typedef struct war_s {
     int cycle;
     int dump;
     int nb_champ;
-    char *vm;
+    unsigned char *vm;
     champion_t **champs;
 } war_t;
+
+int corewar(war_t *war);
 
 // Parsing functions //
 war_t *init_war(int ac, char *argv[]);
@@ -46,5 +48,11 @@ champion_t **init_champ_array(void);
 int print_help(void);
 champion_t *parse_champ(char *arg, champion_t *champ);
 
+// Utils functions //
+void war_correct_nb(war_t *war);
+
+// Free functions //
+void free_war(war_t *war);
+void free_champ_array(war_t *war);
 
 #endif /* COREWAR_H_ */
