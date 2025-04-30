@@ -37,6 +37,7 @@ typedef struct war_s {
     int nb_champ;
     unsigned char *vm;
     champion_t **champs;
+    int visual;
 } war_t;
 
 int corewar(war_t *war);

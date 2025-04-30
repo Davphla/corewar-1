@@ -59,6 +59,9 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
             return 0;
         case 'n':
             return check_n_flag(argv, i, champ);
+        case 'v':
+            war->visual = 1;
+            return 0;
     }
     return 0;
 }

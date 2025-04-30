@@ -24,6 +24,7 @@ war_t *init_struct_war(void)
     war->cycle = 0;
     war->dump = -1;
     war->nb_champ = 0;
+    war->visual = 0;
     return war;
 }
 

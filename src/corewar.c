@@ -9,5 +9,7 @@
 
 int corewar(war_t *war)
 {
+    if (war->visual == 1)
+        return 1;
     return 0;
 }
