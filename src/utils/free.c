@@ -18,7 +18,7 @@ void free_champ_array(war_t *war)
 
 void free_war(war_t *war)
 {
-    // free(war->vm);
+    free(war->vm);
     free_champ_array(war);
     free(war);
 }
