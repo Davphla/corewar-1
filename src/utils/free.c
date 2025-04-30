@@ -9,10 +9,8 @@
 
 void free_champ_array(war_t *war)
 {
-    for (int i = 0; i < war->nb_champ; i++) {
-        printf("i = %i\n", i);
+    for (int i = 0; i < war->nb_champ; i++)
         free(war->champs[i]);
-    }
     free(war->champs);
 }
 

@@ -102,7 +102,6 @@ war_t *init_war(int ac, char *argv[])
         free(war);
         return NULL;
     }
-    war->vm = vm;
     if (parse_args(ac, argv, war) == -1) {
         free(vm);
         free(war);
