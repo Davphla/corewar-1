@@ -7,23 +7,53 @@
 
 #include "corewar.h"
 
-void parse_file(FILE *fd, champion_t *champ)
+static int read_champ(FILE *fd, champion_t *champ, unsigned char *vm,
+    int adress)
 {
-    return;
+    header_t header;
+    unsigned char data;
+
+    fread(&header, sizeof(header_t), 1, fd);
+    if (change_endians(header.magic) != COREWAR_EXEC_MAGIC)
+        return -1;
+    my_strcpy(champ->name, header.prog_name);
+    my_strcpy(champ->comment, header.comment);
+    champ->size = change_endians(header.prog_size);
+    for (int i = 0; i < champ->size; i++) {
+        fread(&data, sizeof(unsigned char), 1, fd);
+        vm[adress + i] = data;
+    }
+    return 0;
 }
 
-champion_t *parse_champ(char *arg, champion_t *champ)
+static void update_adress(int *champ_adress, int *adress)
+{
+    if (*champ_adress != -1)
+        *adress = *champ_adress;
+    else
+        *champ_adress = *adress;
+}
+
+int parse_champ(unsigned char *vm, int adress, char *champ_name,
+    champion_t *champ)
 {
     FILE *fd = NULL;
 
-    fd = fopen(arg, "r");
-    if (my_strcmp(&arg[my_strlen(arg) - 4], ".cor") != 0 || fd == NULL) {
+    fd = fopen(champ_name, "r");
+    if (my_strlen(champ_name) < 4
+        || my_strcmp(&champ_name[my_strlen(champ_name) - 4], ".cor") != 0
+        || fd == NULL) {
         if (fd != NULL)
             fclose(fd);
         free(champ);
-        return NULL;
+        return -1;
     }
-    parse_file(fd, champ);
+    update_adress(&champ->adress, &adress);
+    if (read_champ(fd, champ, vm, adress) == -1) {
+        fclose(fd);
+        free(champ);
+        return -1;
+    }
     fclose(fd);
-    return champ == NULL ? NULL : champ;
+    return 0;
 }

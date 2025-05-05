@@ -13,9 +13,13 @@ SRC	=	src/op.c	\
 		src/parsing/init_struct.c	\
 		src/utils/free.c	\
 		src/utils/utils.c	\
+		src/utils/change_endian.c \
 		src/lib/my_strcmp.c	\
 		src/lib/my_strlen.c	\
-		src/lib/my_arrlen.c
+		src/lib/my_arrlen.c \
+		src/lib/my_getnbr.c \
+		src/lib/my_strcpy.c \
+		src/lib/my_strdup.c
 
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)

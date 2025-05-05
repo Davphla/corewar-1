@@ -11,5 +11,8 @@
 int my_strcmp(char *s1, char *s2);
 int my_strlen(char *str);
 int my_arrlen(char **arr);
+char *my_strcpy(char *dest, char *src);
+char *my_strdup(char *src);
+int my_getnbr(char const *str);
 
 #endif /* MINILIB_H_ */

@@ -55,7 +55,8 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
             return check_dump_flag(argv, i, war);
         case 'a':
             (*i)++;
-            champ->adress_flag = argv[*i];
+            printf("????\n");
+            champ->adress = my_getnbr(argv[*i]);
             return 0;
         case 'n':
             return check_n_flag(argv, i, champ);
@@ -66,27 +67,36 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
     return 0;
 }
 
+static int set_to_file_and_verify(war_t *war, char *champ_name[])
+{
+    for (int i = 0; i < war->nb_champ; i++)
+        parse_champ(war->vm, i * (MEM_SIZE / war->nb_champ), champ_name[i],
+            war->champs[i]);
+    if (MAX_P < war->nb_champ || MIN_P > war->nb_champ
+        || verif_champ(war) == -1)
+        return -1;
+    return 1;
+}
+
 // Parse args and check for flags //
 static int parse_args(int ac, char *argv[], war_t *war)
 {
     int ret = 0;
-    int index_champ = 0;
+    char *champ_name[4] = {NULL};
 
     for (int i = 1; i < ac; i++) {
-        if (argv[i][0] == '-')
-            ret = parse_flags(argv, &i, war, war->champs[index_champ]);
-        else {
-            parse_champ(argv[i], war->champs[index_champ]);
-            index_champ++;
+        if (war->nb_champ == 4)
+            return -1;
+        if (argv[i][0] == '-') {
+            ret = parse_flags(argv, &i, war, war->champs[war->nb_champ]);
+        } else {
+            champ_name[war->nb_champ] = my_strdup(argv[i]);
             war->nb_champ++;
         }
         if (ret != 0)
             return -1;
     }
-    if (MAX_P < index_champ || MIN_P > index_champ ||
-        verif_champ(war) == -1)
-        return -1;
-    return 1;
+    return set_to_file_and_verify(war, champ_name);
 }
 
 // initialize the war structure //

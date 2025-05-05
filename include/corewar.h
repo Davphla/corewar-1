@@ -5,29 +5,31 @@
 ** Header file for the Corewar project
 */
 
+#include "minilib.h"
+#include "op.h"
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 #ifndef COREWAR_H_
     #define COREWAR_H_
-
-    #include "op.h"
-    #include "minilib.h"
-
-    #include <unistd.h>
-    #include <stdlib.h>
-    #include <stdio.h>
-    #include <stdbool.h>
 
     #define MAX_P 4
     #define MIN_P 2
 
 // Struct for every champions personnals data //
 typedef struct champion_s {
-    char *name;
-    char *comment;
+    char name[PROG_NAME_LENGTH];
+    char comment[COMMENT_LENGTH];
+    int size;
     int reg[REG_NUMBER];
     int PC;
     int clock;
     int num_flag;
-    char *adress_flag;
+    int adress;
 } champion_t;
 
 // Struct info with every usefull global data //
@@ -47,10 +49,13 @@ war_t *init_war(int ac, char *argv[]);
 war_t *init_struct_war(void);
 champion_t **init_champ_array(void);
 int print_help(void);
-champion_t *parse_champ(char *arg, champion_t *champ);
+int parse_champ(unsigned char *vm, int adress, char *champ_name,
+    champion_t *champ);
 
 // Utils functions //
 void war_correct_nb(war_t *war);
+uint32_t change_endians(uint32_t value);
+uint16_t change_endians_16(uint16_t value);
 
 // Free functions //
 void free_war(war_t *war);
