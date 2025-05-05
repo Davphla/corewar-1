@@ -9,6 +9,7 @@
 
 int corewar(war_t *war)
 {
+    display_vm(war->vm);
     if (war->visual == 1)
         return 1;
     return 0;
