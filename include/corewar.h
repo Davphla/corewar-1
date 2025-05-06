@@ -59,11 +59,13 @@ int print_help(void);
 int parse_champ(unsigned char *vm, int adress, char *champ_name,
     champion_t *champ);
 
+// Corewar funcions //
+void dump(unsigned char *vm);
+
 // Utils functions //
 void war_correct_nb(war_t *war);
 uint32_t change_endians(uint32_t value);
 uint16_t change_endians_16(uint16_t value);
-void display_vm(unsigned char *vm);
 
 // Free functions //
 void free_war(war_t *war);
