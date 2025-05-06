@@ -7,10 +7,26 @@
 
 #include "corewar.h"
 
+void display_hexa(unsigned char c)
+{
+    unsigned char hexa[2];
+
+    hexa[0] = c / 16;
+    hexa[1] = c % 16;
+    for (int i = 0; i < 2; i++) {
+        if (hexa[i] <= 9) {
+            my_putchar(hexa[i] + 48);
+        } else {
+            my_putchar(hexa[i] + 65 - 10);
+        }
+    }
+}
+
 void display_vm(unsigned char *vm)
 {
+    display_hexa(vm[0]);
     for (int i = 0; i < MEM_SIZE; i++) {
-        printf("%02X", vm[i]);
+        display_hexa(vm[i]);
     }
-    printf("\n");
+    my_putchar('\n');
 }

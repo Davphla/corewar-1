@@ -21,6 +21,8 @@ SRC	=	src/op.c \
 		src/lib/my_getnbr.c \
 		src/lib/my_strcpy.c \
 		src/lib/my_strdup.c \
+		src/lib/my_putchar.c \
+		src/lib/my_putstr.c \
 		src/linked_list/list_array.c \
 		src/linked_list/list.c
 

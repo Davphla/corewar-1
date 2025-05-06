@@ -55,7 +55,6 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
             return check_dump_flag(argv, i, war);
         case 'a':
             (*i)++;
-            printf("????\n");
             champ->adress = my_getnbr(argv[*i]);
             return 0;
         case 'n':
