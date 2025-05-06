@@ -5,14 +5,14 @@
 ## Makefile
 ##
 
-SRC	=	src/op.c	\
-		src/corewar.c	\
-		src/parsing/init_war.c	\
-		src/parsing/print_help.c	\
-		src/parsing/parse_champ.c	\
-		src/parsing/init_struct.c	\
-		src/utils/free.c	\
-		src/utils/utils.c	\
+SRC	=	src/op.c \
+		src/corewar.c \
+		src/parsing/init_war.c \
+		src/parsing/print_help.c \
+		src/parsing/parse_champ.c \
+		src/parsing/init_struct.c \
+		src/utils/free.c \
+		src/utils/utils.c \
 		src/utils/change_endian.c \
 		src/utils/display_vm.c \
 		src/lib/my_strcmp.c \
@@ -20,7 +20,9 @@ SRC	=	src/op.c	\
 		src/lib/my_arrlen.c \
 		src/lib/my_getnbr.c \
 		src/lib/my_strcpy.c \
-		src/lib/my_strdup.c
+		src/lib/my_strdup.c \
+		src/linked_list/list_array.c \
+		src/linked_list/list.c
 
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)

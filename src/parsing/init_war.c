@@ -67,11 +67,13 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
     return 0;
 }
 
-static int set_to_file_and_verify(war_t *war, char *champ_name[])
+static int write_in_vm_and_verify(war_t *war, char *champ_name[])
 {
     for (int i = 0; i < war->nb_champ; i++)
         parse_champ(war->vm, i * (MEM_SIZE / war->nb_champ), champ_name[i],
             war->champs[i]);
+    for (int i = 0; champ_name[i]; i++)
+        free(champ_name[i]);
     if (MAX_P < war->nb_champ || MIN_P > war->nb_champ
         || verif_champ(war) == -1)
         return -1;
@@ -96,7 +98,7 @@ static int parse_args(int ac, char *argv[], war_t *war)
         if (ret != 0)
             return -1;
     }
-    return set_to_file_and_verify(war, champ_name);
+    return write_in_vm_and_verify(war, champ_name);
 }
 
 // initialize the war structure //

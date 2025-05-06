@@ -28,6 +28,20 @@ war_t *init_struct_war(void)
     return war;
 }
 
+// Initialize champ_pocess
+static llist_t *create_process(int champ_index)
+{
+    llist_t *process_node = malloc(sizeof(llist_t));
+    process_t *process = calloc(1, sizeof(process_t));
+
+    if (process_node == NULL || process == NULL)
+        return NULL;
+    process->reg[0] = champ_index;
+    process_node->data = process;
+    process_node->next = NULL;
+    return process_node;
+}
+
 // Initialize the champ structure
 champion_t **init_champ_array(void)
 {
@@ -38,10 +52,7 @@ champion_t **init_champ_array(void)
     for (int i = 0; i < MAX_P; i++) {
         champ[i] = malloc(sizeof(champion_t));
         champ[i]->size = 0;
-        champ[i]->reg[0] = i + 1;
-        for (int j = 1; j < REG_NUMBER; j++)
-            champ[i]->reg[j] = 0;
-        champ[i]->PC = 0;
+        champ[i]->process_list = create_process(i + 1);
         champ[i]->clock = 0;
         champ[i]->num_flag = i;
         champ[i]->adress = -1;

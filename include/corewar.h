@@ -7,6 +7,7 @@
 
 #include "minilib.h"
 #include "op.h"
+#include "list.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -20,13 +21,19 @@
     #define MAX_P 4
     #define MIN_P 2
 
+// Struct for champ process //
+typedef struct process_s {
+    int reg[REG_NUMBER];
+    int PC;
+    int cycle;
+} process_t;
+
 // Struct for every champions personnals data //
 typedef struct champion_s {
     char name[PROG_NAME_LENGTH];
     char comment[COMMENT_LENGTH];
     int size;
-    int reg[REG_NUMBER];
-    int PC;
+    llist_t *process_list;
     int clock;
     int num_flag;
     int adress;
@@ -61,5 +68,6 @@ void display_vm(unsigned char *vm);
 // Free functions //
 void free_war(war_t *war);
 void free_champ_array(war_t *war);
+void free_champ(champion_t *champ);
 
 #endif /* COREWAR_H_ */

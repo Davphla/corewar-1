@@ -7,10 +7,17 @@
 
 #include "corewar.h"
 
+void free_champ(champion_t *champ)
+{
+    free_list_obj(champ->process_list);
+    free(champ);
+}
+
 void free_champ_array(war_t *war)
 {
-    for (int i = 0; i < war->nb_champ; i++)
-        free(war->champs[i]);
+    for (int i = 0; i < war->nb_champ; i++) {
+        free_champ(war->champs[i]);
+    }
     free(war->champs);
 }
 

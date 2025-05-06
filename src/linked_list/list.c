@@ -6,8 +6,21 @@
 */
 
 #include "list.h"
-#include "str.h"
-#include <stdlib.h>
+#include "corewar.h"
+
+// void free_list_obj(llist_t **list)
+// {
+//     llist_t *temp = *list;
+
+//     while ((*list)->next != NULL) {
+//         (*list) = (*list)->next;
+//         if (temp->data != NULL)
+//             free(temp->data);
+//         free(temp);
+//         temp = *list;
+//     }
+//     free(temp);
+// }
 
 int len_list(llist_t *list)
 {
@@ -33,18 +46,16 @@ void free_list(llist_t **list)
     }
 }
 
-void free_list_obj(llist_t **list)
+void free_list_obj(llist_t *list)
 {
-    llist_t *temp = *list;
+    llist_t *next = NULL;
 
-    while ((*list)->next != NULL) {
-        (*list) = (*list)->next;
-        if (temp->data != NULL)
-            free(temp->data);
-        free(temp);
-        temp = *list;
-    }
-    free(temp);
+    if (!list)
+        return;
+    next = list->next;
+    free(list->data);
+    free(list);
+    free_list_obj(next);
 }
 
 void cat_list(llist_t **dest, llist_t *node, int where)

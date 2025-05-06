@@ -45,13 +45,13 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
         || fd == NULL) {
         if (fd != NULL)
             fclose(fd);
-        free(champ);
+        free_champ(champ);
         return -1;
     }
     update_adress(&champ->adress, &adress);
     if (read_champ(fd, champ, vm, adress) == -1) {
         fclose(fd);
-        free(champ);
+        free_champ(champ);
         return -1;
     }
     fclose(fd);

@@ -17,7 +17,7 @@ typedef struct llist {
 } llist_t;
 
 void free_list(llist_t **list);
-void free_list_obj(llist_t **list);
+void free_list_obj(llist_t *list);
 void cat_list(llist_t **dest, llist_t *node, int where);
 llist_t *create_node(void *entity);
 int len_list(llist_t *list);

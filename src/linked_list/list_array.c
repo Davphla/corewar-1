@@ -6,8 +6,7 @@
 */
 
 #include "list.h"
-#include "str.h"
-#include <stdlib.h>
+#include "corewar.h"
 
 llist_t *arr_to_list(char **arr)
 {
