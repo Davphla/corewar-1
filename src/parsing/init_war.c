@@ -55,7 +55,7 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
             return check_dump_flag(argv, i, war);
         case 'a':
             (*i)++;
-            champ->adress = my_getnbr(argv[*i]);
+            champ->adress = my_getnbr(argv[*i]) % MEM_SIZE;
             return 0;
         case 'n':
             return check_n_flag(argv, i, champ);
