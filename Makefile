@@ -14,7 +14,6 @@ SRC	=	src/op.c \
 		src/utils/free.c \
 		src/utils/utils.c \
 		src/utils/change_endian.c \
-		src/corewar/dump.c \
 		src/lib/my_strcmp.c \
 		src/lib/my_strlen.c	\
 		src/lib/my_arrlen.c \
