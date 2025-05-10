@@ -21,10 +21,12 @@ war_t *init_struct_war(void)
     }
     for (int i = 0; i < MEM_SIZE; i++)
         war->vm[i] = '\0';
-    war->cycle = 0;
+    war->cycle = 1;
     war->dump = -1;
     war->nb_champ = 0;
     war->visual = 0;
+    war->cycle_to_die = CYCLE_TO_DIE;
+    war->nbr_live = 0;
     return war;
 }
 
@@ -32,7 +34,7 @@ war_t *init_struct_war(void)
 static llist_t *create_process(int champ_index)
 {
     llist_t *process_node = malloc(sizeof(llist_t));
-    process_t *process = calloc(1, sizeof(process_t));
+    process_t *process = my_calloc(1, sizeof(process_t));
 
     if (process_node == NULL || process == NULL)
         return NULL;
@@ -54,8 +56,10 @@ champion_t **init_champ_array(void)
         champ[i]->size = 0;
         champ[i]->process_list = create_process(i + 1);
         champ[i]->clock = 0;
-        champ[i]->num_flag = i;
+        champ[i]->id = i;
         champ[i]->adress = -1;
+        champ[i]->to_die = 0;
+        champ[i]->alive = true;
     }
     return champ;
 }

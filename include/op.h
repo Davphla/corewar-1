@@ -31,27 +31,6 @@ typedef char args_type_t;
             // (ld 1,r1 put what's in the address (1+pc) into r1 (4 bytes ))
     #define T_LAB 8 /* LABEL */
 
-typedef struct op_s {
-    char *mnemonique;
-    char nbr_args;
-    args_type_t type[MAX_ARGS_NUMBER];
-    char code;
-    int nbr_cycles;
-    char *comment;
-} op_t;
-
-/*
-** size (in bytes)
-*/
-    #define IND_SIZE 2
-    #define DIR_SIZE 4
-    #define REG_SIZE DIR_SIZE
-
-/*
-** op_tab
-*/
-extern const op_t op_tab[];
-
 /*
 ** header
 */
@@ -66,6 +45,31 @@ typedef struct header_s {
     char comment[COMMENT_LENGTH + 1];
 } header_t;
 
+    #include "corewar.h"
+
+typedef struct op_s {
+    char *mnemonique;
+    char nbr_args;
+    args_type_t type[MAX_ARGS_NUMBER];
+    char code;
+    int nbr_cycles;
+    char *comment;
+    int (*func)(war_t *war, champion_t *champ, process_t *process);
+} op_t;
+
+/*
+** size (in bytes)
+*/
+    #define IND_SIZE 2
+    #define DIR_SIZE 4
+    #define REG_SIZE DIR_SIZE
+
+/*
+** op_tab
+*/
+extern const op_t op_tab[];
+
+    #define NBR_OP 16
 /*
 ** live
 */

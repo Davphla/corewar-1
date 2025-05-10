@@ -5,15 +5,15 @@
 ** Header file for the Corewar project
 */
 
-#include "minilib.h"
-#include "op.h"
-#include "list.h"
-
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#include "minilib.h"
+#include "op.h"
+#include "list.h"
 
 #ifndef COREWAR_H_
     #define COREWAR_H_
@@ -35,8 +35,10 @@ typedef struct champion_s {
     int size;
     llist_t *process_list;
     int clock;
-    int num_flag;
+    int id;
     int adress;
+    int to_die;
+    bool alive;
 } champion_t;
 
 // Struct info with every usefull global data //
@@ -47,6 +49,8 @@ typedef struct war_s {
     unsigned char *vm;
     champion_t **champs;
     int visual;
+    int nbr_live;
+    int cycle_to_die;
 } war_t;
 
 int corewar(war_t *war);
@@ -60,12 +64,34 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
     champion_t *champ);
 
 // Corewar funcions //
+int update_vm(war_t *war);
 void dump(unsigned char *vm);
+int handle_champ(war_t *war, champion_t *champ);
+int handle_process(war_t *war, champion_t *champ, process_t *process);
+// Instructions //
+int i_add(war_t *war, champion_t *champ, process_t *process);
+int i_aff(war_t *war, champion_t *champ, process_t *process);
+int i_and(war_t *war, champion_t *champ, process_t *process);
+int i_fork(war_t *war, champion_t *champ, process_t *process);
+int i_ld(war_t *war, champion_t *champ, process_t *process);
+int i_ldi(war_t *war, champion_t *champ, process_t *process);
+int i_lfork(war_t *war, champion_t *champ, process_t *process);
+int i_live(war_t *war, champion_t *champ, process_t *process);
+int i_lld(war_t *war, champion_t *champ, process_t *process);
+int i_lldi(war_t *war, champion_t *champ, process_t *process);
+int i_or(war_t *war, champion_t *champ, process_t *process);
+int i_st(war_t *war, champion_t *champ, process_t *process);
+int i_sti(war_t *war, champion_t *champ, process_t *process);
+int i_sub(war_t *war, champion_t *champ, process_t *process);
+int i_xor(war_t *war, champion_t *champ, process_t *process);
+int i_zjmp(war_t *war, champion_t *champ, process_t *process);
 
 // Utils functions //
 void war_correct_nb(war_t *war);
 uint32_t change_endians(uint32_t value);
 uint16_t change_endians_16(uint16_t value);
+int check_winner(war_t *war);
+int display_winner(war_t *war);
 
 // Free functions //
 void free_war(war_t *war);

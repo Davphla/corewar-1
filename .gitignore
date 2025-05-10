@@ -13,3 +13,6 @@ corewar_bin
 
 *.cor
 *.s
+
+## binaries ##
+binaries

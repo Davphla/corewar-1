@@ -42,7 +42,7 @@ static int check_n_flag(char *argv[], int *i, champion_t *champ)
             return -1;
         number = number * 10 + (argv[*i][j] - 48);
     }
-    champ->num_flag = number;
+    champ->id = number;
     return 0;
 }
 

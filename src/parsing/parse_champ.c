@@ -21,7 +21,7 @@ static int read_champ(FILE *fd, champion_t *champ, unsigned char *vm,
     champ->size = change_endians(header.prog_size);
     for (int i = 0; i < champ->size; i++) {
         fread(&data, sizeof(unsigned char), 1, fd);
-        vm[adress + i] = data;
+        vm[(adress + i) % IDX_MOD] = data;
     }
     return 0;
 }
