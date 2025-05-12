@@ -1,0 +1,19 @@
+/*
+** EPITECH PROJECT, 2025
+** B-CPE-200-LYN-2-1-robotfactory-bastien.sukiennik
+** File description:
+** i_fork.c
+*/
+
+#include "corewar.h"
+
+int i_fork(war_t *war, champion_t *champ, process_t *process)
+{
+    int begin_pc = process->PC;
+    int new_pc;
+
+    process->PC++;
+    new_pc = (begin_pc + get_ind(war->vm, process->PC) % IDX_MOD) % MEM_SIZE;
+    add_to_end(&champ->process_list, process_dup(process, new_pc));
+    return 0;
+}

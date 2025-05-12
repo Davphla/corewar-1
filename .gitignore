@@ -3,7 +3,6 @@
 *.out
 *.o
 *.a
-corewar
 
 ## Help files ##
 
@@ -15,4 +14,5 @@ corewar_bin
 *.s
 
 ## binaries ##
+
 binaries
