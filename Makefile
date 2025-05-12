@@ -18,6 +18,9 @@ SRC	=	src/op.c\
 		src/utils/change_endian.c\
 		src/utils/check_winner.c\
 		src/utils/display_winner.c\
+		src/utils/get_direct.c\
+		src/utils/get_ind.c\
+		src/utils/process_dup.c\
 		\
 		src/corewar/dump.c\
 		src/corewar/update_vm.c\
@@ -50,6 +53,7 @@ SRC	=	src/op.c\
 		src/lib/my_putstr.c\
 		src/lib/my_calloc.c\
 		src/lib/my_putnbr.c\
+		src/lib/my_pow.c\
 		\
 		src/linked_list/list_array.c\
 		src/linked_list/list.c\

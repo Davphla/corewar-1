@@ -88,10 +88,13 @@ int i_zjmp(war_t *war, champion_t *champ, process_t *process);
 
 // Utils functions //
 void war_correct_nb(war_t *war);
-uint32_t change_endians(uint32_t value);
-uint16_t change_endians_16(uint16_t value);
+unsigned int change_endians(unsigned int value);
+unsigned short change_endians_short(unsigned short value);
 int check_winner(war_t *war);
 int display_winner(war_t *war);
+int get_direct(unsigned char *vm, int *pc);
+short get_ind(unsigned char *vm, int *pc);
+process_t *process_dup(process_t *process, int new_pc);
 
 // Free functions //
 void free_war(war_t *war);

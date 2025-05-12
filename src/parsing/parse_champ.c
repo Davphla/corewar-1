@@ -21,17 +21,18 @@ static int read_champ(FILE *fd, champion_t *champ, unsigned char *vm,
     champ->size = change_endians(header.prog_size);
     for (int i = 0; i < champ->size; i++) {
         fread(&data, sizeof(unsigned char), 1, fd);
-        vm[(adress + i) % IDX_MOD] = data;
+        vm[(adress + i) % MEM_SIZE] = data;
     }
     return 0;
 }
 
-static void update_adress(int *champ_adress, int *adress)
+static void update_adress(champion_t *champ, int *champ_adress, int *adress)
 {
     if (*champ_adress != -1)
         *adress = *champ_adress;
     else
         *champ_adress = *adress;
+    ((process_t *)(champ->process_list->data))->PC = *adress;
 }
 
 int parse_champ(unsigned char *vm, int adress, char *champ_name,
@@ -48,7 +49,7 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
         free_champ(champ);
         return -1;
     }
-    update_adress(&champ->adress, &adress);
+    update_adress(champ, &champ->adress, &adress);
     if (read_champ(fd, champ, vm, adress) == -1) {
         fclose(fd);
         free_champ(champ);

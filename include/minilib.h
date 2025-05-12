@@ -20,5 +20,6 @@ void my_putchar(char c);
 int my_putstr(char *str);
 void *my_calloc(size_t n, size_t size);
 int my_putnbr(int nb);
+unsigned int my_pow(int nb, int power);
 
 #endif /* MINILIB_H_ */

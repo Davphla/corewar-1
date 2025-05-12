@@ -83,3 +83,15 @@ llist_t *create_node(void *entity)
     node->next = NULL;
     return node;
 }
+
+void add_to_end(llist_t **begin, void *data)
+{
+    llist_t *curr = *begin;
+
+    if (!curr)
+        return;
+    while (curr->next)
+        curr = curr->next;
+    curr->next = create_node(data);
+    return;
+}

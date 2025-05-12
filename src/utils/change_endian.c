@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-uint32_t change_endians(uint32_t value)
+unsigned int change_endians(unsigned int value)
 {
     unsigned int left = (value & 0xff000000) >> 24;
     unsigned int middle_left = (value & 0x00ff0000) >> 8;
@@ -17,10 +17,10 @@ uint32_t change_endians(uint32_t value)
     return (left | middle_left | middle_right | right);
 }
 
-uint16_t change_endians_16(uint16_t value)
+unsigned short change_endians_16(unsigned short value)
 {
-    uint16_t left = (value & 0xff00) >> 8;
-    uint16_t right = (value & 0x00ff) << 8;
+    unsigned short left = (value & 0xff00) >> 8;
+    unsigned short right = (value & 0x00ff) << 8;
 
     return (left | right);
 }
