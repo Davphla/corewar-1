@@ -28,10 +28,23 @@ char **list_to_arr(llist_t **list)
     char **arr = malloc(sizeof(char *) * (len_list(*list)));
     int i = 0;
 
+    if (arr == NULL)
+        return NULL;
     for (llist_t *temp = *list; temp != NULL; temp = temp->next) {
         arr[i] = my_strdup(temp->data);
         i++;
     }
     arr[i] = NULL;
     return arr;
+}
+
+int len_list(llist_t *list)
+{
+    int len = 1;
+
+    while (list != NULL) {
+        len++;
+        list = list->next;
+    }
+    return len;
 }
