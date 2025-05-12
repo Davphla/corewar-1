@@ -7,7 +7,8 @@
 
 #include "corewar.h"
 
-int i_aff(war_t *war, champion_t *champ, process_t *process)
+int i_aff(war_t *war, __attribute_maybe_unused__ champion_t *champ,
+    process_t *process)
 {
     unsigned char register_index;
 

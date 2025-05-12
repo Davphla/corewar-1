@@ -82,7 +82,7 @@ fclean: clean
 re: fclean all
 
 coding_style: fclean
-	coding-style . > /dev/null
+	coding-style . .
 	cat coding-style-reports.log
 	$(RM) coding-style-reports.log
 

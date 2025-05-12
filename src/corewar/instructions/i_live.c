@@ -7,13 +7,32 @@
 
 #include "corewar.h"
 
-int i_live(war_t *war, champion_t *champ, process_t *process)
+static int display_prompt(int id, char *name)
 {
-    int param_value = 0;
-
-    process->PC++;
-    param_value = get_direct(war->vm, &process->PC);
-    war->nbr_live++;
-    champ->to_die = 0;
+    my_putstr("The player ");
+    my_putnbr(id);
+    my_putstr("(");
+    my_putstr(name);
+    my_putstr(")is alive.\n");
     return 0;
+}
+
+int i_live(war_t *war, __attribute_maybe_unused__ champion_t *champ,
+    process_t *process)
+{
+    int live_champ_id = 0;
+
+    (void) champ;
+    process->PC++;
+    live_champ_id = get_direct(war->vm, &process->PC);
+    war->nbr_live++;
+    for (int i = 0; i < war->nb_champ; i++) {
+        if (war->champs[i]->id == live_champ_id) {
+            war->champs[i]->to_die = 0;
+            display_prompt(war->champs[i]->id, war->champs[i]->name);
+            return 0;
+        }
+    }
+    display_prompt(live_champ_id, "");
+    return -1;
 }
