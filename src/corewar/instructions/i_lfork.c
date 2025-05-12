@@ -9,5 +9,11 @@
 
 int i_lfork(war_t *war, champion_t *champ, process_t *process)
 {
+    int begin_pc = process->PC;
+    int new_pc;
+
+    process->PC++;
+    new_pc = (begin_pc + get_ind(war->vm, &process->PC)) % MEM_SIZE;
+    add_to_end(&champ->process_list, process_dup(process, new_pc));
     return 0;
 }

@@ -17,7 +17,7 @@ unsigned int change_endians(unsigned int value)
     return (left | middle_left | middle_right | right);
 }
 
-unsigned short change_endians_16(unsigned short value)
+unsigned short change_endians_short(unsigned short value)
 {
     unsigned short left = (value & 0xff00) >> 8;
     unsigned short right = (value & 0x00ff) << 8;

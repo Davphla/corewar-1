@@ -17,7 +17,7 @@ static int set_new_cycle(war_t *war, process_t *process)
     }
     process->PC++;
     process->PC %= MEM_SIZE;
-    return 0;
+    return -1;
 }
 
 static int exec_instruction(war_t *war, champion_t *champ, process_t *process)
@@ -25,10 +25,12 @@ static int exec_instruction(war_t *war, champion_t *champ, process_t *process)
     for (int op_nb = 0; op_nb < NBR_OP; op_nb++) {
         if (war->vm[process->PC] == op_tab[op_nb].code) {
             op_tab[op_nb].func(war, champ, process);
-            break;
+            return 0;
         }
     }
-    return 0;
+    process->PC++;
+    process->PC %= MEM_SIZE;
+    return -1;
 }
 
 int handle_process(war_t *war, champion_t *champ, process_t *process)

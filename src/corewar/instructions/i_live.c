@@ -10,7 +10,7 @@
 int i_live(war_t *war, champion_t *champ, process_t *process)
 {
     int param_value = 0;
-    
+
     process->PC++;
     param_value = get_direct(war->vm, &process->PC);
     war->nbr_live++;

@@ -15,5 +15,5 @@ short get_ind(unsigned char *vm, int *pc)
         indirect_value += vm[(*pc) % MEM_SIZE] * my_pow(256, i);
         (*pc)++;
     }
-    return (short)indirect_value;   
+    return (short)indirect_value;
 }

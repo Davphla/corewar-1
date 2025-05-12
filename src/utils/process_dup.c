@@ -12,5 +12,9 @@ process_t *process_dup(process_t *process, int new_pc)
     process_t *new_process = malloc(sizeof(process_t));
 
     new_process->cycle = process->cycle;
-    
+    new_process->PC = new_pc;
+    for (int i = 0; i < REG_NUMBER; i++) {
+        new_process->reg[i] = process->reg[i];
+    }
+    return new_process;
 }
