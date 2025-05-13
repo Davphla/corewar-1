@@ -17,10 +17,14 @@ int main(int ac, char *argv[])
     if (war == NULL)
         return 84;
     war_correct_nb(war);
+    if (war->visual == 1)
+        initscr();
     if (corewar(war) == -1) {
         free_war(war);
         return 84;
     }
+    if (war->visual == 1)
+        endwin();
     free_war(war);
     return 0;
 }

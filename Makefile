@@ -57,10 +57,14 @@ SRC	=	src/op.c\
 		\
 		src/linked_list/list_array.c\
 		src/linked_list/list.c\
+		\
+		src/visual/init_visuals.c\
+		src/visual/visuals.c
 
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)
 NAME	=	corewar
+LIB	=	-lncurses
 CFLAGS += -Wall -Wextra -pedantic
 CPPFLAGS	+= -Iinclude/
 ifeq ($(ENV), dev)
@@ -70,7 +74,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc -o $(NAME) $(OBJ)
+	gcc -o $(NAME) $(OBJ) $(LIB)
 
 clean:
 	$(RM) $(OBJ)

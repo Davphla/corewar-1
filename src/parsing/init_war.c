@@ -9,9 +9,7 @@
 
 static int verif_champ(war_t *war)
 {
-    int i = 0;
-
-    for (; i < war->nb_champ; i++) {
+    for (int i = 0; i < war->nb_champ; i++) {
         if (war->champs[i] == NULL)
             return -1;
     }

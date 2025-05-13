@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ncurses.h>
 
 #include "minilib.h"
 #include "op.h"
@@ -20,6 +21,18 @@
 
     #define MAX_P 4
     #define MIN_P 2
+
+    #define COLOR_1
+    #define COLOR_2
+    #define COLOR_3
+    #define COLOR_4
+
+    #define CURSOR_1
+    #define CURSOR_2
+    #define CURSOR_3
+    #define CURSOR_4
+
+    #define RESET "\e[0m"
 
 // Struct for champ process //
 typedef struct process_s {
@@ -100,5 +113,9 @@ process_t *process_dup(process_t *process, int new_pc);
 void free_war(war_t *war);
 void free_champ_array(war_t *war);
 void free_champ(champion_t *champ);
+
+// Visual Function //
+void ncurse_gameboard(war_t *war);
+void init_visuals(war_t *war);
 
 #endif /* COREWAR_H_ */
