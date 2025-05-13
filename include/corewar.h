@@ -22,17 +22,24 @@
     #define MAX_P 4
     #define MIN_P 2
 
-    #define COLOR_1
-    #define COLOR_2
-    #define COLOR_3
-    #define COLOR_4
+    #define COLOR_1 1
+    #define COLOR_2 2
+    #define COLOR_3 3
+    #define COLOR_4 4
 
-    #define CURSOR_1
-    #define CURSOR_2
-    #define CURSOR_3
-    #define CURSOR_4
+    #define CURSOR_1 5
+    #define CURSOR_2 6
+    #define CURSOR_3 7
+    #define CURSOR_4 8
 
-    #define RESET "\e[0m"
+typedef struct win_s {
+    WINDOW *b_player;
+    WINDOW *player;
+    WINDOW *b_vm;
+    WINDOW *vm;
+    WINDOW *b_hist;
+    WINDOW *hist;
+} win_t;
 
 // Struct for champ process //
 typedef struct process_s {
@@ -115,6 +122,7 @@ void free_champ_array(war_t *war);
 void free_champ(champion_t *champ);
 
 // Visual Function //
+void init_screen(void);
 void ncurse_gameboard(war_t *war);
 void init_visuals(war_t *war);
 

@@ -18,7 +18,7 @@ int main(int ac, char *argv[])
         return 84;
     war_correct_nb(war);
     if (war->visual == 1)
-        initscr();
+        init_screen();
     if (corewar(war) == -1) {
         free_war(war);
         return 84;
