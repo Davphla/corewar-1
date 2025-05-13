@@ -7,7 +7,15 @@
 
 #include "corewar.h"
 
-int i_zjmp(war_t *war, champion_t *champ, process_t *process)
+int i_zjmp(war_t *war, __attribute_maybe_unused__ champion_t *champ,
+    process_t *process)
 {
+    int begin_pc = process->PC;
+    short index_value = 0;
+
+    process->PC += 1;
+    index_value = get_ind(war->vm, &process->PC);
+    if (process->carry == 1)
+        process->PC = begin_pc + index_value % IDX_MOD;
     return 0;
 }
