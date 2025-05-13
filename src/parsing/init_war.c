@@ -9,9 +9,7 @@
 
 static int verif_champ(war_t *war)
 {
-    int i = 0;
-
-    for (; i < war->nb_champ; i++) {
+    for (int i = 0; i < war->nb_champ; i++) {
         if (war->champs[i] == NULL)
             return -1;
     }
@@ -34,15 +32,15 @@ static int check_dump_flag(char *argv[], int *i, war_t *war)
 
 static int check_n_flag(char *argv[], int *i, champion_t *champ)
 {
-    int number = 0;
+    int id = 0;
 
     (*i)++;
     for (int j = 0; j < my_strlen(argv[*i]); j++) {
         if (argv[*i][j] < 48 || argv[*i][j] > 57)
             return -1;
-        number = number * 10 + (argv[*i][j] - 48);
+        id = id * 10 + (argv[*i][j] - 48);
     }
-    champ->id = number;
+    champ->id = id;
     return 0;
 }
 
