@@ -11,14 +11,17 @@ int i_aff(war_t *war, __attribute_maybe_unused__ champion_t *champ,
     process_t *process)
 {
     unsigned char register_index;
+    int begin_pc = process->PC;
+    unsigned char coding_byte;
 
-    process->PC += 2;
-    register_index = war->vm[process->PC % MEM_SIZE];
-    if (register_index < 1 || register_index > 16) {
-        process->PC++;
+    process->PC += 1;
+    coding_byte = get_coding_byte(war->vm, &process->PC);
+    register_index = get_register(war->vm, &process->PC);
+    if (verify_register(register_index) == -1 || coding_byte != 64) {
+        process->PC = begin_pc + 1;
         return -1;
     }
     my_putchar(process->reg[register_index - 1] % 256);
-    process->PC++;
+    my_putchar('\n');
     return 0;
 }

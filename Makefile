@@ -18,9 +18,12 @@ SRC	=	src/op.c\
 		src/utils/change_endian.c\
 		src/utils/check_winner.c\
 		src/utils/display_winner.c\
+		src/utils/get_coding_byte.c\
 		src/utils/get_direct.c\
 		src/utils/get_ind.c\
+		src/utils/get_register.c\
 		src/utils/process_dup.c\
+		src/utils/verify_register.c\
 		\
 		src/corewar/dump.c\
 		src/corewar/update_vm.c\

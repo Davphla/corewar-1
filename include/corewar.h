@@ -26,6 +26,7 @@ typedef struct process_s {
     int reg[REG_NUMBER];
     int PC;
     int cycle;
+    bool carry;
 } process_t;
 
 // Struct for every champions personnals data //
@@ -92,9 +93,12 @@ unsigned int change_endians(unsigned int value);
 unsigned short change_endians_short(unsigned short value);
 int check_winner(war_t *war);
 int display_winner(war_t *war);
+unsigned char get_coding_byte(unsigned char *vm, int *pc);
 int get_direct(unsigned char *vm, int *pc);
 short get_ind(unsigned char *vm, int *pc);
+char get_register(unsigned char *vm, int *pc);
 process_t *process_dup(process_t *process, int new_pc);
+int verify_register(char register_index);
 
 // Free functions //
 void free_war(war_t *war);
