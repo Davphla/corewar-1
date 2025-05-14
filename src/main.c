@@ -17,8 +17,6 @@ int main(int ac, char *argv[])
     if (war == NULL)
         return 84;
     war_correct_nb(war);
-    for (int i = 0; i < war->nb_champ; i++)
-        printf("id = %i\n", war->champs[i]->id);
     if (corewar(war) == -1) {
         free_war(war);
         return 84;
