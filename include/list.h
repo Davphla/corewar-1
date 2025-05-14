@@ -23,6 +23,5 @@ llist_t *create_node(void *entity);
 int len_list(llist_t *list);
 char **list_to_arr(llist_t **list);
 llist_t *arr_to_list(char **arr);
-void add_to_end(llist_t **begin, void *data);
 
 #endif /* LIST_H_ */

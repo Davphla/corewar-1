@@ -20,7 +20,8 @@ int get_value_index(unsigned char value_type, process_t *process, war_t *war,
                 return 0;
             }
             return process->reg[register_index - 1];
-        case 2 | 3:
+        case 2:
+        case 3:
             return get_ind(war->vm, &process->PC);
         default:
             *error = -1;
