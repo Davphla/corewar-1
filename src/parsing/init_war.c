@@ -70,7 +70,7 @@ static int write_in_vm_and_verify(war_t *war, char *champ_name[])
         if (parse_champ(war->vm, i * (MEM_SIZE / war->nb_champ), champ_name[i],
             war->champs[i]) == -1)
             return -1;
-    for (int i = 0; champ_name[i]; i++)
+    for (int i = 0; i < MAX_P && champ_name[i]; i++)
         free(champ_name[i]);
     if (MAX_P < war->nb_champ || MIN_P > war->nb_champ
         || verif_champ(war) == -1)
