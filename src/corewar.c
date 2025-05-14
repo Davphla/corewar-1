@@ -12,10 +12,8 @@ int corewar(war_t *war)
     while (1) {
         war->cycle++;
         update_vm(war);
-        if (check_winner(war)) {
-            // dump(war->vm);
+        if (check_winner(war))
             break;
-        }
         if (war->dump != -1 && war->cycle % war->dump == 0) {
             dump(war->vm);
         }
