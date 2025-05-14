@@ -20,8 +20,3 @@ void init_screen(void)
     init_pair(CURSOR_3, COLOR_BLACK, COLOR_BLUE);
     init_pair(CURSOR_4, COLOR_BLACK, COLOR_YELLOW);
 }
-
-void init_visuals(war_t *war)
-{
-    printw(war->vm);
-}

@@ -47,7 +47,7 @@ static win_t init_manager(void)
 static void print_shortcut(void)
 {
     attron(COLOR_PAIR(COLOR_4));
-    printw("<space>: Stop/Continue    <q>: quit    <s>: advance 1 cycle");
+    printw("<space>: Stop/Continue | <q>: quit | <s>: advance 1 cycle");
     attroff(COLOR_PAIR(COLOR_4));
 }
 
