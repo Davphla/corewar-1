@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2025
 ** B-CPE-200-LYN-2-1-corewar-alexandre.kubiaczyk
 ** File description:
-** get_value.c
+** get_value_index.c
 */
 
 #include "corewar.h"
 
-int get_value(unsigned char value_type, process_t *process, war_t *war,
+int get_value_index(unsigned char value_type, process_t *process, war_t *war,
     int *error)
 {
     unsigned char register_index = 0;
@@ -20,9 +20,7 @@ int get_value(unsigned char value_type, process_t *process, war_t *war,
                 return 0;
             }
             return process->reg[register_index - 1];
-        case 2:
-            return get_direct(war->vm, &process->PC);
-        case 3:
+        case 2 | 3:
             return get_ind(war->vm, &process->PC);
         default:
             *error = -1;

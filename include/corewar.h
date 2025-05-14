@@ -113,6 +113,9 @@ int verify_register(unsigned char register_index);
 int set_carry(process_t *process, int result);
 int get_value(unsigned char value_type, process_t *process, war_t *war,
     int *error);
+int get_value_index(unsigned char value_type, process_t *process, war_t *war,
+    int *error);
+int write_in_vm(unsigned char *vm, int value, int adress, size_t size);
 
 // Free functions //
 void free_war(war_t *war);
