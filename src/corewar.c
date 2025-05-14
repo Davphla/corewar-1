@@ -14,10 +14,9 @@ int corewar(war_t *war)
             ncurse_gameboard(war);
         war->cycle++;
         update_vm(war);
-        if (check_winner(war)) {
+        if (check_winner(war))
             break;
-        }
-        if (war->dump != -1 && war->cycle % war->dump == 0)
+        if (war->dump != -1 && war->cycle % war->dump == 0) {
             dump(war->vm);
     }
     display_winner(war);
