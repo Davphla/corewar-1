@@ -7,10 +7,10 @@
 
 #include "corewar.h"
 
-char get_register(unsigned char *vm, int *pc)
+unsigned char get_register(unsigned char *vm, int *pc)
 {
     unsigned char register_value = vm[*pc % MEM_SIZE];
 
     *pc += 1;
-    return (char)register_value;
+    return register_value;
 }

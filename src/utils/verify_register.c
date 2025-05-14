@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-int verify_register(char register_index)
+int verify_register(unsigned char register_index)
 {
     if (register_index < 1 || register_index > 16) {
         return -1;

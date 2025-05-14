@@ -24,6 +24,8 @@ SRC	=	src/op.c\
 		src/utils/get_register.c\
 		src/utils/process_dup.c\
 		src/utils/verify_register.c\
+		src/utils/set_carry.c\
+		src/utils/get_value.c\
 		\
 		src/corewar/dump.c\
 		src/corewar/update_vm.c\
