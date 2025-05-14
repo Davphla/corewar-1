@@ -40,15 +40,15 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
 {
     FILE *fd = NULL;
 
-    fd = fopen(champ_name, "r");
-    if (my_strlen(champ_name) < 4
-        || my_strcmp(&champ_name[my_strlen(champ_name) - 4], ".cor") != 0
-        || fd == NULL) {
-        if (fd != NULL)
-            fclose(fd);
+    if (my_strlen(champ_name) < 4)
+        return -1;
+    if (my_strcmp(&champ_name[my_strlen(champ_name) - 4], ".cor") != 0) {
         free_champ(champ);
         return -1;
     }
+    fd = fopen(champ_name, "r");
+    if (fd == NULL)
+        return -1;
     update_adress(champ, &champ->adress, &adress);
     if (read_champ(fd, champ, vm, adress) == -1) {
         fclose(fd);

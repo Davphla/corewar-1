@@ -22,17 +22,6 @@
 //     free(temp);
 // }
 
-int len_list(llist_t *list)
-{
-    int len = 1;
-
-    while (list != NULL) {
-        len++;
-        list = list->next;
-    }
-    return len;
-}
-
 void free_list(llist_t **list)
 {
     llist_t *temp = *list;

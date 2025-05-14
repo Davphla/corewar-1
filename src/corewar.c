@@ -16,9 +16,8 @@ int corewar(war_t *war)
             dump(war->vm);
             break;
         }
-        if (war->dump != -1 && war->cycle % war->dump == 0) {
+        if (war->dump != -1 && war->cycle % war->dump == 0)
             dump(war->vm);
-        }
     }
     display_winner(war);
     return 0;
