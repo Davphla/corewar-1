@@ -21,12 +21,13 @@ war_t *init_struct_war(void)
     }
     for (int i = 0; i < MEM_SIZE; i++)
         war->vm[i] = '\0';
-    war->cycle = 1;
+    war->cycle = 0;
     war->dump = -1;
     war->nb_champ = 0;
     war->visual = 0;
     war->cycle_to_die = CYCLE_TO_DIE;
     war->nbr_live = 0;
+    war->last_to_live = NULL;
     return war;
 }
 

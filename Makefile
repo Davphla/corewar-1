@@ -28,6 +28,7 @@ SRC	=	src/op.c\
 		src/utils/get_value.c\
 		src/utils/get_value_index.c\
 		src/utils/write_in_vm.c\
+		src/utils/normalize_vm_index.c\
 		\
 		src/corewar/dump.c\
 		src/corewar/update_vm.c\

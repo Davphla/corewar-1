@@ -12,6 +12,7 @@ static int read_champ(FILE *fd, champion_t *champ, unsigned char *vm,
 {
     header_t header;
     unsigned char data;
+    int normalized_adress = 0;
 
     fread(&header, sizeof(header_t), 1, fd);
     if (change_endians(header.magic) != COREWAR_EXEC_MAGIC)
@@ -21,7 +22,8 @@ static int read_champ(FILE *fd, champion_t *champ, unsigned char *vm,
     champ->size = change_endians(header.prog_size);
     for (int i = 0; i < champ->size; i++) {
         fread(&data, sizeof(unsigned char), 1, fd);
-        vm[(adress + i) % MEM_SIZE] = data;
+        normalized_adress = normalize_vm_index(adress + i);
+        vm[normalized_adress] = data;
     }
     return 0;
 }

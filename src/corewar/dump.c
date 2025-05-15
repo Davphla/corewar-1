@@ -20,6 +20,7 @@ void display_hexa(unsigned char c)
             my_putchar(hexa[i] + 65 - 10);
         }
     }
+    my_putchar(' ');
 }
 
 void dump(unsigned char *vm)

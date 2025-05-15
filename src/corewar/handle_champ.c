@@ -11,6 +11,9 @@ int handle_champ(war_t *war, champion_t *champ)
 {
     llist_t *process = champ->process_list;
 
+    if (!champ->alive) {
+        return -1;
+    }
     champ->to_die += 1;
     while (process) {
         handle_process(war, champ, (process_t *)(process->data));

@@ -41,6 +41,7 @@ static int check_n_flag(char *argv[], int *i, champion_t *champ)
         id = id * 10 + (argv[*i][j] - 48);
     }
     champ->id = id;
+    ((process_t *)(champ->process_list->data))->reg[0] = id;
     return 0;
 }
 

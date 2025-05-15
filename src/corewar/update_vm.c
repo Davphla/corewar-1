@@ -10,11 +10,12 @@
 int update_vm(war_t *war, win_t *manager)
 {
     for (int i = 0; i < war->nb_champ; i++) {
-        if (war->champs[i]->alive)
+        if (war->champs[i]->alive) {
             handle_champ(war, war->champs[i]);
+        }
     }
     if (war->nbr_live >= NBR_LIVE) {
-        war->cycle_to_die -= CYCLE_DELTA;
+        war->cycle_to_die = war->cycle_to_die - CYCLE_DELTA;
         war->nbr_live %= NBR_LIVE;
     }
     return 0;
