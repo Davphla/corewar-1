@@ -59,7 +59,8 @@ SRC	=	src/op.c\
 		src/linked_list/list.c\
 		\
 		src/visual/init_visuals.c\
-		src/visual/visuals.c
+		src/visual/visuals.c\
+		src/visual/events.c
 
 MAIN_SRC	=	src/main.c
 OBJ	=	$(SRC:.c=.o) $(MAIN_SRC:.c=.o)

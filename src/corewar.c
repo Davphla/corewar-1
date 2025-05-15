@@ -9,11 +9,14 @@
 
 int corewar(war_t *war)
 {
+    win_t manager = {0};
+
     while (1) {
         if (war->visual == 1)
-            ncurse_gameboard(war);
+            ncurse_gameboard(war, &manager);
         war->cycle++;
-        update_vm(war);
+        update_vm(war, &manager);
+        sleep(1);
         if (check_winner(war))
             break;
         if (war->dump != -1 && war->cycle % war->dump == 0)

@@ -84,7 +84,7 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
     champion_t *champ);
 
 // Corewar funcions //
-int update_vm(war_t *war);
+int update_vm(war_t *war, win_t *manager);
 void dump(unsigned char *vm);
 int handle_champ(war_t *war, champion_t *champ);
 int handle_process(war_t *war, champion_t *champ, process_t *process);
@@ -123,7 +123,9 @@ void free_champ(champion_t *champ);
 
 // Visual Function //
 void init_screen(void);
-void ncurse_gameboard(war_t *war);
+win_t init_manager(void);
+void event(char input, war_t *war, win_t *manager);
+void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);
 
 #endif /* COREWAR_H_ */

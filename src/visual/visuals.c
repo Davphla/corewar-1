@@ -20,23 +20,25 @@ static void size_error(void)
     wprintw(error, "The Terminal is too small please resize your terminal or downsize your font");
     wattron(error, COLOR_PAIR(COLOR_4));
     refresh();
-    sleep(5);
+    sleep(7);
     delwin(error);
     delwin(border);
 }
 
-static win_t init_manager(void)
+win_t init_manager(void)
 {
-    win_t manager;
+    win_t manager = {0};
 
     manager.b_player = subwin(stdscr, 8, COLS - 15, 0, 0);
     manager.player = derwin(manager.b_player, 6, COLS - 17, 1, 1);
     box(manager.b_player, ACS_VLINE, ACS_HLINE);
     mvwprintw(manager.b_player, 0, 2, "Players");
+
     manager.b_vm = subwin(stdscr, LINES - 9, COLS - 15, 8, 0);
     manager.vm = derwin(manager.b_vm, LINES - 10, COLS - 17, 1, 1);
     box(manager.b_vm, ACS_VLINE, ACS_HLINE);
     mvwprintw(manager.b_vm, 0, 2, "Arena");
+
     manager.b_hist = subwin(stdscr, LINES - 1, 14, 0, COLS - 14);
     manager.hist = derwin(manager.b_hist, 14, LINES - 2, 1, 1);
     box(manager.b_hist, ACS_VLINE, ACS_HLINE);
@@ -51,21 +53,25 @@ static void print_shortcut(void)
     attroff(COLOR_PAIR(COLOR_4));
 }
 
-void ncurse_gameboard(war_t *war)
+static void print_vm(WINDOW *vm, war_t *war)
+{
+    wprintw(vm, war->vm);
+}
+
+void ncurse_gameboard(war_t *war, win_t *manager)
 {
     static int init = 0;
-    static win_t manager;
 
-    if (COLS < 200 && init == 0)
+    if (COLS < 200)
         size_error();
     if (init == 0) {
-        manager = init_manager();
-        move(LINES - 1, 0);
-        print_shortcut();
-        refresh();
-        getch();
+        *manager = init_manager();
         init = 1;
-    } else {
-        return;
     }
+    move(LINES - 1, 0);
+    print_vm(manager->vm, war);
+    print_shortcut();
+    event(getch(), war, manager);
+    refresh();
+    getch();
 }
