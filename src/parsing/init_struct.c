@@ -56,7 +56,7 @@ champion_t **init_champ_array(void)
         champ[i]->size = 0;
         champ[i]->process_list = create_process(i + 1);
         champ[i]->clock = 0;
-        champ[i]->id = i;
+        champ[i]->id = i + 1;
         champ[i]->adress = -1;
         champ[i]->to_die = 0;
         champ[i]->alive = true;

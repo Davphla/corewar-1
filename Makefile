@@ -18,9 +18,16 @@ SRC	=	src/op.c\
 		src/utils/change_endian.c\
 		src/utils/check_winner.c\
 		src/utils/display_winner.c\
+		src/utils/get_coding_byte.c\
 		src/utils/get_direct.c\
 		src/utils/get_ind.c\
+		src/utils/get_register.c\
 		src/utils/process_dup.c\
+		src/utils/verify_register.c\
+		src/utils/set_carry.c\
+		src/utils/get_value.c\
+		src/utils/get_value_index.c\
+		src/utils/write_in_vm.c\
 		\
 		src/corewar/dump.c\
 		src/corewar/update_vm.c\
@@ -87,7 +94,7 @@ fclean: clean
 re: fclean all
 
 coding_style: fclean
-	coding-style . > /dev/null
+	coding-style . .
 	cat coding-style-reports.log
 	$(RM) coding-style-reports.log
 

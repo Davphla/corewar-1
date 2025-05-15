@@ -46,6 +46,7 @@ typedef struct process_s {
     int reg[REG_NUMBER];
     int PC;
     int cycle;
+    bool carry;
 } process_t;
 
 // Struct for every champions personnals data //
@@ -72,6 +73,17 @@ typedef struct war_s {
     int nbr_live;
     int cycle_to_die;
 } war_t;
+
+// Coding byte union //
+typedef union coding_byte_u {
+    struct {
+        unsigned char fourth : 2;
+        unsigned char third : 2;
+        unsigned char second : 2;
+        unsigned char first : 2;
+    };
+    unsigned char coding_byte;
+} coding_byte_t;
 
 int corewar(war_t *war);
 
@@ -112,9 +124,18 @@ unsigned int change_endians(unsigned int value);
 unsigned short change_endians_short(unsigned short value);
 int check_winner(war_t *war);
 int display_winner(war_t *war);
+unsigned char get_coding_byte(unsigned char *vm, int *pc);
 int get_direct(unsigned char *vm, int *pc);
 short get_ind(unsigned char *vm, int *pc);
+unsigned char get_register(unsigned char *vm, int *pc);
 process_t *process_dup(process_t *process, int new_pc);
+int verify_register(unsigned char register_index);
+int set_carry(process_t *process, int result);
+int get_value(unsigned char value_type, process_t *process, war_t *war,
+    int *error);
+int get_value_index(unsigned char value_type, process_t *process, war_t *war,
+    int *error);
+int write_in_vm(unsigned char *vm, int value, int adress, size_t size);
 
 // Free functions //
 void free_war(war_t *war);

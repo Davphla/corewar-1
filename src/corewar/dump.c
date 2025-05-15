@@ -26,7 +26,7 @@ void dump(unsigned char *vm)
 {
     for (int i = 0; i < MEM_SIZE; i++) {
         display_hexa(vm[i]);
-        if ((i + 1) % (32 * 8) == 0)
+        if ((i + 1) % 32 == 0)
             my_putchar('\n');
     }
 }

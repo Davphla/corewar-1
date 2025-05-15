@@ -16,5 +16,6 @@ process_t *process_dup(process_t *process, int new_pc)
     for (int i = 0; i < REG_NUMBER; i++) {
         new_process->reg[i] = process->reg[i];
     }
+    new_process->carry = process->carry;
     return new_process;
 }
