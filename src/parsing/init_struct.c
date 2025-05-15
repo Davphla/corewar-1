@@ -20,6 +20,8 @@ war_t *init_struct_war(void)
         return NULL;
     }
     for (int i = 0; i < MEM_SIZE; i++)
+        war->vm_id[i] = 0;
+    for (int i = 0; i < MEM_SIZE; i++)
         war->vm[i] = '\0';
     war->cycle = 0;
     war->dump = -1;

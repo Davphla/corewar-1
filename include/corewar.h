@@ -22,6 +22,7 @@
     #define MAX_P 4
     #define MIN_P 2
 
+    #define COLOR_0 0
     #define COLOR_1 1
     #define COLOR_2 2
     #define COLOR_3 3
@@ -31,6 +32,8 @@
     #define CURSOR_2 6
     #define CURSOR_3 7
     #define CURSOR_4 8
+
+    #define FULLSCREEN 0
 
 typedef struct win_s {
     WINDOW *b_player;
@@ -68,6 +71,7 @@ typedef struct war_s {
     int dump;
     int nb_champ;
     unsigned char *vm;
+    int vm_id[MEM_SIZE];
     champion_t **champs;
     int visual;
     int nbr_live;

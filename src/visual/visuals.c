@@ -55,7 +55,22 @@ static void print_shortcut(void)
 
 static void print_vm(WINDOW *vm, war_t *war)
 {
-    wprintw(vm, war->vm);
+    unsigned char hexa[2];
+
+    for (int i = 0; i < MEM_SIZE; i++) {
+        hexa[0] = war->vm[i] / 16;
+        hexa[1] = war->vm[i] % 16;
+        for (int j = 0; j < 2; j++) {
+            if (hexa[j] <= 9)
+                hexa[j] = hexa[j] + 48;
+            else
+                hexa[j] = hexa[j] + 65 - 10;
+        }
+        wattron(vm, COLOR_PAIR(war->vm_id[i]));
+        wprintw(vm, "%s", hexa);
+        wattroff(vm, COLOR_PAIR(war->vm_id[i]));
+        wprintw(vm, " ");
+    }
 }
 
 void ncurse_gameboard(war_t *war, win_t *manager)
@@ -74,4 +89,5 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     event(getch(), war, manager);
     refresh();
     getch();
+    usleep(500);
 }

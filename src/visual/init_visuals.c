@@ -12,6 +12,7 @@ void init_screen(void)
     initscr();
     start_color();
     nodelay(stdscr, true);
+    init_pair(COLOR_0, COLOR_WHITE, COLOR_BLACK);
     init_pair(COLOR_1, COLOR_RED, COLOR_BLACK);
     init_pair(COLOR_2, COLOR_GREEN, COLOR_BLACK);
     init_pair(COLOR_3, COLOR_BLUE, COLOR_BLACK);
