@@ -9,13 +9,15 @@
 
 static int verify_coding_byte(coding_byte_t coding_byte)
 {
-    if (coding_byte.first == 0 || coding_byte.second == 0) {
+    if (coding_byte.first == 0) {
         return -1;
     }
-    if (coding_byte.second == 0 || coding_byte.second == 3)
-        if (coding_byte.third != 1) {
-            return -1;
-        }
+    if (coding_byte.second == 0 || coding_byte.second == 3) {
+        return -1;
+    }
+    if (coding_byte.third != 1) {
+        return -1;
+    }
     if (coding_byte.fourth != 0) {
         return -1;
     }
