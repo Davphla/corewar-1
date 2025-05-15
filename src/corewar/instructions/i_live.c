@@ -17,12 +17,10 @@ static int display_prompt(int id, char *name)
     return 0;
 }
 
-int i_live(war_t *war, __attribute_maybe_unused__ champion_t *champ,
-    process_t *process)
+int i_live(war_t *war, champion_t *champ, process_t *process)
 {
     int live_champ_id = 0;
 
-    (void) champ;
     process->PC++;
     live_champ_id = get_direct(war->vm, &process->PC);
     war->nbr_live++;
@@ -30,6 +28,7 @@ int i_live(war_t *war, __attribute_maybe_unused__ champion_t *champ,
         if (war->champs[i]->id == live_champ_id) {
             war->champs[i]->to_die = 0;
             display_prompt(war->champs[i]->id, war->champs[i]->name);
+            war->last_to_live = champ;
             return 0;
         }
     }

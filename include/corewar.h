@@ -52,6 +52,7 @@ typedef struct war_s {
     int visual;
     int nbr_live;
     int cycle_to_die;
+    champion_t *last_to_live;
 } war_t;
 
 // Coding byte union //
@@ -116,6 +117,7 @@ int get_value(unsigned char value_type, process_t *process, war_t *war,
 int get_value_index(unsigned char value_type, process_t *process, war_t *war,
     int *error);
 int write_in_vm(unsigned char *vm, int value, int adress, size_t size);
+int normalize_vm_index(int vm_index);
 
 // Free functions //
 void free_war(war_t *war);

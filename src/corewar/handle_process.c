@@ -9,9 +9,11 @@
 
 static int set_new_cycle(war_t *war, process_t *process)
 {
+    int normalized_index = normalize_vm_index(process->PC);
+
     for (int op_nb = 0; op_nb < NBR_OP; op_nb++) {
-        if (war->vm[process->PC] == op_tab[op_nb].code) {
-            process->cycle = op_tab[op_nb].nbr_cycles;
+        if (war->vm[normalized_index] == op_tab[op_nb].code) {
+            process->cycle = op_tab[op_nb].nbr_cycles - 1;
             return 0;
         }
     }
@@ -22,8 +24,10 @@ static int set_new_cycle(war_t *war, process_t *process)
 
 static int exec_instruction(war_t *war, champion_t *champ, process_t *process)
 {
+    int normalized_index = normalize_vm_index(process->PC);
+
     for (int op_nb = 0; op_nb < NBR_OP; op_nb++) {
-        if (war->vm[process->PC] == op_tab[op_nb].code) {
+        if (war->vm[normalized_index] == op_tab[op_nb].code) {
             op_tab[op_nb].func(war, champ, process);
             return 0;
         }

@@ -9,8 +9,10 @@
 
 unsigned char get_coding_byte(unsigned char *vm, int *pc)
 {
-    unsigned char coding_byte = vm[*pc % MEM_SIZE];
+    unsigned char coding_byte;
+    int normalized_adress = normalize_vm_index(*pc);
 
+    coding_byte = vm[normalized_adress];
     *pc += 1;
     return coding_byte;
 }
