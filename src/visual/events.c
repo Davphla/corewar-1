@@ -30,10 +30,10 @@ void event(int input, war_t *war, win_t *manager)
         manager->pause = manager->pause == true ? false : true;
         break;
     case KEY_UP:
-        manager->speed += 1;
+        manager->speed += 2;
         break;
     case KEY_DOWN:
-        manager->speed -= 1;
+        manager->speed -= 2;
         break;
     }
 }

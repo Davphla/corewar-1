@@ -58,14 +58,14 @@ win_t init_manager(int full)
 
     manager.tog_player = false;
     manager.pause = true;
-    manager.speed = 10000;
+    manager.speed = 50;
     return manager;
 }
 
 static void print_shortcut(void)
 {
     attron(COLOR_PAIR(COLOR_4));
-    printw("<space>: Stop/Continue | <q>: Quit | <p>: Show Players | <s>: advance 1 cycle");
+    printw("<space>: Stop/Continue <Up/Down>: Change Speed | <q>: Quit | <p>: Show Players | <s>: advance 1 cycle");
     attroff(COLOR_PAIR(COLOR_4));
 }
 
