@@ -15,7 +15,9 @@ void free_champ(champion_t *champ)
 
 void free_champ_array(war_t *war)
 {
-    for (int i = 0; i < war->nb_champ; i++) {
+    int i = 0;
+
+    for (; i < MAX_P; i++) {
         free_champ(war->champs[i]);
     }
     free(war->champs);
