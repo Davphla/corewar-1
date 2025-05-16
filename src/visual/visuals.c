@@ -89,18 +89,26 @@ static void print_vm(WINDOW *vm, war_t *war)
         wprintw(vm, "%s", hexa);
         wattroff(vm, COLOR_PAIR(war->vm_id[i]));
         getyx(vm, y, x);
-        if (x > x_max - 3)
+        if (x > x_max - 2)
             wmove(vm, y + 1, 0);
         else {
-            wprintw(vm, " ");
+            if (x != 0)
+                wprintw(vm, " ");
         }
     }
+}
+
+static void print_player(WINDOW *player, war_t *war)
+{
+    return;
 }
 
 static void refresh_win(int full, win_t *manager)
 {
     if (full == 0) {
-        refresh();
+        wrefresh(manager->vm);
+        wrefresh(manager->player);
+        wrefresh(manager->hist);
     } else {
         wrefresh(manager->b_vm);
         wrefresh(manager->vm);
@@ -122,6 +130,7 @@ void ncurse_gameboard(war_t *war, win_t *manager)
         *manager = init_manager(war->full);
         init = 1;
     }
+    print_player(manager->player, war);
     print_vm(manager->vm, war);
     move(LINES - 1, 0);
     event(getch(), war, manager);

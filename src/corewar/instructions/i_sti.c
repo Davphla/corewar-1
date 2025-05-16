@@ -77,5 +77,6 @@ int i_sti(war_t *war, __attribute_maybe_unused__ champion_t *champ,
         return reset_pc_and_return(process, begin_pc);
     st_adress = set_adress(war->vm, params, begin_pc, coding_byte);
     write_in_vm(war->vm, arg_value, begin_pc + st_adress % IDX_MOD, REG_SIZE);
+    write_in_vm_id(war->vm_id, champ->id, begin_pc + st_adress % IDX_MOD, REG_SIZE);
     return 0;
 }

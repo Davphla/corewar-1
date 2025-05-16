@@ -39,11 +39,13 @@ static int handle_reg(war_t *war, process_t *process, int begin_pc,
 }
 
 static int handle_ind(war_t *war, process_t *process, int begin_pc,
-    int arg_value)
+                      int arg_value, int id)
 {
     unsigned short indirect_adress = get_ind(war->vm, &process->PC);
 
     write_in_vm(war->vm, arg_value, begin_pc + indirect_adress % IDX_MOD,
+        REG_SIZE);
+    write_in_vm_id(war->vm_id, id, begin_pc + indirect_adress % IDX_MOD,
         REG_SIZE);
     return 0;
 }
@@ -66,6 +68,6 @@ int i_st(war_t *war, __attribute_maybe_unused__ champion_t *champ,
     if (coding_byte.second == 1) {
         return handle_reg(war, process, begin_pc, arg_value);
     } else {
-        return handle_ind(war, process, begin_pc, arg_value);
+        return handle_ind(war, process, begin_pc, arg_value, champ->id);
     }
 }

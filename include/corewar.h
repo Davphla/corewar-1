@@ -145,6 +145,7 @@ int get_value(unsigned char value_type, process_t *process, war_t *war,
 int get_value_index(unsigned char value_type, process_t *process, war_t *war,
     int *error);
 int write_in_vm(unsigned char *vm, int value, int adress, size_t size);
+void write_in_vm_id(int *vm_id, int id, int adress, size_t size);
 int normalize_vm_index(int vm_index);
 
 // Free functions //
