@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <ncurses.h>
+#include <string.h>
 
 #include "minilib.h"
 #include "op.h"
@@ -42,6 +43,8 @@ typedef struct win_s {
     WINDOW *vm;
     WINDOW *b_hist;
     WINDOW *hist;
+    bool tog_player;
+    bool pause;
 } win_t;
 
 // Struct for champ process //
@@ -74,6 +77,7 @@ typedef struct war_s {
     int vm_id[MEM_SIZE];
     champion_t **champs;
     int visual;
+    int full;
     int nbr_live;
     int cycle_to_die;
     champion_t *last_to_live;
@@ -150,7 +154,7 @@ void free_champ(champion_t *champ);
 
 // Visual Function //
 void init_screen(void);
-win_t init_manager(void);
+win_t init_manager(int full);
 void event(char input, war_t *war, win_t *manager);
 void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);

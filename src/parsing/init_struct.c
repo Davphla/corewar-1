@@ -27,6 +27,7 @@ war_t *init_struct_war(void)
     war->dump = -1;
     war->nb_champ = 0;
     war->visual = 0;
+    war->full = 0;
     war->cycle_to_die = CYCLE_TO_DIE;
     war->nbr_live = 0;
     war->last_to_live = NULL;

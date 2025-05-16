@@ -10,6 +10,9 @@
 void init_screen(void)
 {
     initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
     start_color();
     nodelay(stdscr, true);
     init_pair(COLOR_0, COLOR_WHITE, COLOR_BLACK);

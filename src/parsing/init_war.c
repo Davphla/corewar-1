@@ -45,6 +45,16 @@ static int check_n_flag(char *argv[], int *i, champion_t *champ)
     return 0;
 }
 
+static int check_visuals(char *argv[], int *i, war_t *war)
+{
+    war->visual = 1;
+    if (argv[*i + 1] != NULL && strcmp(argv[*i + 1], "full") == 0) {
+        war->full = 1;
+        (*i)++;
+    }
+    return 0;
+}
+
 static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
 {
     if (*i == my_arrlen(argv) - 1)
@@ -59,8 +69,7 @@ static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
         case 'n':
             return check_n_flag(argv, i, champ);
         case 'v':
-            war->visual = 1;
-            return 0;
+            return check_visuals(argv, i, war);
     }
     return 0;
 }
