@@ -45,6 +45,7 @@ typedef struct win_s {
     WINDOW *hist;
     bool tog_player;
     bool pause;
+    int speed;
 } win_t;
 
 // Struct for champ process //
@@ -156,7 +157,7 @@ void free_champ(champion_t *champ);
 // Visual Function //
 void init_screen(void);
 win_t init_manager(int full);
-void event(char input, war_t *war, win_t *manager);
+void event(int input, war_t *war, win_t *manager);
 void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);
 

@@ -12,6 +12,7 @@ void init_screen(void)
     initscr();
     cbreak();
     noecho();
+    keypad(stdscr, TRUE);
     curs_set(0);
     start_color();
     nodelay(stdscr, true);

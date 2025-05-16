@@ -57,7 +57,8 @@ win_t init_manager(int full)
     mvwprintw(manager.b_vm, 0, 2, "Arena");
 
     manager.tog_player = false;
-    manager.pause = false;
+    manager.pause = true;
+    manager.speed = 10000;
     return manager;
 }
 
@@ -98,8 +99,33 @@ static void print_vm(WINDOW *vm, war_t *war)
     }
 }
 
-static void print_player(WINDOW *player, war_t *war)
+static void print_player(WINDOW *player, war_t *war, win_t *manager)
 {
+    int x_max = 0; int y_max = 0;
+
+    werase(player);
+    getmaxyx(player, y_max, x_max);
+
+    wprintw(player, "   Cycle = %i", war->cycle);
+    wmove(player, 1, 0);
+    wprintw(player, "Cycle to die = %i", war->cycle_to_die);
+    wmove(player, 2, 0);
+    wprintw(player, "   Playing = ");
+    if (manager->pause == false) {
+        wattron(player, COLOR_PAIR(COLOR_2));
+        wprintw(player, "YES");
+        wattroff(player, COLOR_PAIR(COLOR_2));
+    } else {
+        wattron(player, COLOR_PAIR(COLOR_1));
+        wprintw(player, "NO");
+        wattroff(player, COLOR_PAIR(COLOR_1));
+    }
+    wmove(player, 3, 0);
+    wprintw(player, "  Speed = %i%%", manager->speed);
+    for (int i = 0; i < war->nb_champ; i++) {
+        NULL;
+    }
+    wrefresh(player);
     return;
 }
 
@@ -123,6 +149,7 @@ static void refresh_win(int full, win_t *manager)
 void ncurse_gameboard(war_t *war, win_t *manager)
 {
     static int init = 0;
+    int input = 0;
 
     if ((COLS < 250 && LINES < 45 && war->full == 0) || (COLS < 128 * 3 + 1 && LINES < 37))
         size_error();
@@ -130,11 +157,20 @@ void ncurse_gameboard(war_t *war, win_t *manager)
         *manager = init_manager(war->full);
         init = 1;
     }
-    print_player(manager->player, war);
+    print_player(manager->player, war, manager);
     print_vm(manager->vm, war);
-    move(LINES - 1, 0);
+    while (manager->pause == true) {
+        event(input = getch(), war, manager);
+        if (input == 's')
+            break;
+    }
     event(getch(), war, manager);
+    move(LINES - 1, 0);
     refresh_win(war->full, manager);
-    getch();
-    usleep(500);
+
+    if (manager->speed < 1)
+        manager->speed = 1;
+    if (manager->speed > 100)
+        manager->speed = 100;
+    usleep((100 - manager->speed) * 1000);
 }

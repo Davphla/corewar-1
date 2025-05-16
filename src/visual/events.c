@@ -20,10 +20,20 @@ static void close_all(war_t *war, win_t *manager)
     exit(0);
 }
 
-void event(char input, war_t *war, win_t *manager)
+void event(int input, war_t *war, win_t *manager)
 {
     switch (input) {
     case 'q':
         close_all(war, manager);
+        break;
+    case ' ':
+        manager->pause = manager->pause == true ? false : true;
+        break;
+    case KEY_UP:
+        manager->speed += 1;
+        break;
+    case KEY_DOWN:
+        manager->speed -= 1;
+        break;
     }
 }
