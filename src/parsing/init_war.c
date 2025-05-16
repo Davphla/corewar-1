@@ -16,18 +16,28 @@ static int verif_champ(war_t *war)
     return 0;
 }
 
+static int verify_string(char *str)
+{
+    for (int i = 0; i < my_strlen(str); i++) {
+        if (str[i] < '0' || str[i] > '9') {
+            return -1;
+        }
+    }
+    return 0;
+}
+
 static int check_dump_flag(char *argv[], int *i, war_t *war)
 {
     int dump_cycle = 0;
 
     (*i)++;
-    for (int j = 0; j < my_strlen(argv[*i]); j++) {
-        if (argv[*i][j] < 48 || argv[*i][j] > 57)
-            return -1;
-        dump_cycle = dump_cycle * 10 + (argv[*i][j] - 48);
+    dump_cycle = my_getnbr(argv[*i]);
+    if (verify_string(argv[*i]) == -1) {
+        return -1;
+    } else {
+        war->dump = dump_cycle;
+        return 0;
     }
-    war->dump = dump_cycle;
-    return 0;
 }
 
 static int check_n_flag(char *argv[], int *i, champion_t *champ)
@@ -35,32 +45,46 @@ static int check_n_flag(char *argv[], int *i, champion_t *champ)
     int id = 0;
 
     (*i)++;
-    for (int j = 0; j < my_strlen(argv[*i]); j++) {
-        if (argv[*i][j] < 48 || argv[*i][j] > 57)
-            return -1;
-        id = id * 10 + (argv[*i][j] - 48);
+    id = my_getnbr(argv[*i]);
+    if (verify_string(argv[*i]) == -1) {
+        return -1;
+    } else {
+        champ->id = id;
+        ((process_t *)(champ->process_list->data))->reg[0] = id;
+        return 0;
     }
-    champ->id = id;
-    ((process_t *)(champ->process_list->data))->reg[0] = id;
-    return 0;
+}
+
+static int check_a_flag(char *argv[], int *i, champion_t *champ)
+{
+    int adress = 0;
+
+    (*i)++;
+    adress = my_getnbr(argv[*i]) % MEM_SIZE;
+    if (verify_string(argv[*i]) == -1) {
+        return -1;
+    } else {
+        champ->adress = adress;
+        return 0;
+    }
 }
 
 static int parse_flags(char *argv[], int *i, war_t *war, champion_t *champ)
 {
     if (*i == my_arrlen(argv) - 1)
         return -1;
-    switch (argv[*i][1]) {
-        case 'd':
-            return check_dump_flag(argv, i, war);
-        case 'a':
-            (*i)++;
-            champ->adress = my_getnbr(argv[*i]) % MEM_SIZE;
-            return 0;
-        case 'n':
-            return check_n_flag(argv, i, champ);
-        case 'v':
-            war->visual = 1;
-            return 0;
+    if (my_strcmp(argv[*i], "-dump") == 0) {
+        return check_dump_flag(argv, i, war);
+    }
+    if (my_strcmp(argv[*i], "-a") == 0) {
+        return check_a_flag(argv, i, champ);
+    }
+    if (my_strcmp(argv[*i], "-n") == 0) {
+        return check_n_flag(argv, i, champ);
+    }
+    if (my_strcmp(argv[*i], "-v") == 0) {
+        war->visual = 1;
+        return 0;
     }
     return 0;
 }
