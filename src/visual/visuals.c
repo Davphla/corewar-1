@@ -30,11 +30,11 @@ win_t init_manager(int full)
     win_t manager = {0};
 
     if (full == 0) {
-        manager.b_player = subwin(stdscr, 8, COLS - 15, 0, 0);
-        manager.player = derwin(manager.b_player, 6, COLS - 17, 1, 1);
+        manager.b_player = subwin(stdscr, 6, COLS - 15, 0, 0);
+        manager.player = derwin(manager.b_player, 4, COLS - 17, 1, 1);
 
-        manager.b_vm = subwin(stdscr, LINES - 9, COLS - 15, 8, 0);
-        manager.vm = derwin(manager.b_vm, LINES - 11, COLS - 17, 1, 1);
+        manager.b_vm = subwin(stdscr, LINES - 7, COLS - 15, 6, 0);
+        manager.vm = derwin(manager.b_vm, LINES - 9, COLS - 17, 1, 1);
 
         manager.b_hist = subwin(stdscr, LINES - 1, 14, 0, COLS - 14);
         manager.hist = derwin(manager.b_hist, 14, LINES - 2, 1, 1);
@@ -90,7 +90,7 @@ static void print_vm(WINDOW *vm, war_t *war)
         wprintw(vm, "%s", hexa);
         wattroff(vm, COLOR_PAIR(war->vm_id[i]));
         getyx(vm, y, x);
-        if (x > x_max - 2)
+        if (x > x_max - 3)
             wmove(vm, y + 1, 0);
         else {
             if (x != 0)
@@ -112,18 +112,32 @@ static void print_player(WINDOW *player, war_t *war, win_t *manager)
     wmove(player, 2, 0);
     wprintw(player, "   Playing = ");
     if (manager->pause == false) {
-        wattron(player, COLOR_PAIR(COLOR_2));
+        wattron(player, COLOR_PAIR(GREEN));
         wprintw(player, "YES");
-        wattroff(player, COLOR_PAIR(COLOR_2));
+        wattroff(player, COLOR_PAIR(GREEN));
     } else {
-        wattron(player, COLOR_PAIR(COLOR_1));
+        wattron(player, COLOR_PAIR(RED));
         wprintw(player, "NO");
-        wattroff(player, COLOR_PAIR(COLOR_1));
+        wattroff(player, COLOR_PAIR(RED));
     }
     wmove(player, 3, 0);
-    wprintw(player, "  Speed = %i%%", manager->speed);
+    wprintw(player, "   Speed = %i%%", manager->speed);
+
     for (int i = 0; i < war->nb_champ; i++) {
-        NULL;
+        int column = 30 + (x_max / (war->nb_champ + 0.5)) * i;
+        wmove(player, 0, column);
+        wattron(player, COLOR_PAIR(i + 1));
+        wprintw(player, "%s", war->champs[i]->name);
+        wmove(player, 1, column);
+        wprintw(player, "Alive: ");
+        war->champs[i]->alive == true ? wattron(player, COLOR_PAIR(GREEN_BG)) : wattron(player, COLOR_PAIR(RED_BG));
+        wprintw(player, "  ");
+        wattron(player, COLOR_PAIR(i + 1));
+        wmove(player, 2, column);
+        wprintw(player, "Cycle Left = %i", war->cycle_to_die - war->champs[i]->to_die);
+        wmove(player, 3, column);
+        wprintw(player, "Nb_Process = %i", len_list(war->champs[i]->process_list));
+        wattroff(player, COLOR_PAIR(i + 1));
     }
     wrefresh(player);
     return;

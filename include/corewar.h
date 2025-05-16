@@ -34,6 +34,15 @@
     #define CURSOR_3 7
     #define CURSOR_4 8
 
+    #define WHITE COLOR_0
+    #define RED COLOR_1
+    #define GREEN COLOR_2
+    #define BLUE COLOR_3
+    #define YELLOW COLOR_4
+
+    #define RED_BG CURSOR_1
+    #define GREEN_BG CURSOR_2
+
     #define FULLSCREEN 0
 
 typedef struct win_s {
