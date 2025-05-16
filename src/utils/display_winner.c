@@ -7,6 +7,32 @@
 
 #include "corewar.h"
 
+static void display_win_ncurse(int nb_cycle, char *name)
+{
+    WINDOW *b_win = subwin(stdscr, 7, 40, LINES / 2 - 4, COLS / 2 - 25);
+    WINDOW *win = derwin(b_win, 5, 38, 1, 1);
+    int x_max = 0; int y_max = 0;
+
+    getmaxyx(win, y_max, x_max);
+    for (int i = 0; i < x_max; i++)
+        for (int j = 0; j < y_max; j++)
+            mvwprintw(win, j, i, " ");
+    wattron(b_win, COLOR_PAIR(GREEN));
+    box(b_win, ACS_VLINE, ACS_HLINE);
+    wattroff(b_win, COLOR_PAIR(GREEN));
+    mvwprintw(b_win, 0, 13, "Congratulation");
+    wattron(win, COLOR_PAIR(GREEN));
+    wmove(win, 1, 0);
+    wprintw(win, "%s, You stood up against the greatest of all in %i cycle, well done !", name, nb_cycle);
+    wattron(win, COLOR_PAIR(COLOR_4));
+    wrefresh(b_win);
+    wrefresh(win);
+    sleep(8);
+    delwin(b_win);
+    delwin(win);
+    return;
+}
+
 static int display_prompt(int nb_cycle, int id, char *name)
 {
     my_putstr("The player ");
@@ -28,4 +54,12 @@ int display_winner(war_t *war)
             war->last_to_live->name);
     }
     return 0;
+}
+
+void disp_winner_ncurse(war_t *war)
+{
+    if (!war->last_to_live)
+        display_prompt(war->cycle, 0, "");
+    else
+        display_win_ncurse(war->cycle, war->last_to_live->name);
 }

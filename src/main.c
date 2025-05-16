@@ -23,8 +23,6 @@ int main(int ac, char *argv[])
         free_war(war);
         return 84;
     }
-    if (war->visual == 1)
-        endwin();
     free_war(war);
     return 0;
 }

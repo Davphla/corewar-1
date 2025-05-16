@@ -36,6 +36,10 @@ int corewar(war_t *war)
         if (war->dump != -1 && war->cycle % war->dump == 0)
             dump(war->vm);
     }
+    if (war->visual == 1) {
+        disp_winner_ncurse(war);
+        endwin();
+    }
     display_winner(war);
     return 0;
 }

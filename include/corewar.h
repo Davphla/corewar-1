@@ -169,5 +169,6 @@ win_t init_manager(int full);
 void event(int input, war_t *war, win_t *manager);
 void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);
+void disp_winner_ncurse(war_t *war);
 
 #endif /* COREWAR_H_ */
