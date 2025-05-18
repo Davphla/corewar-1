@@ -12,8 +12,8 @@ void write_in_vm_id(int *vm_id, int id, int adress, size_t size)
     int pos = 0;
 
     for (int i = size - 1; i >= 0; i--) {
-        vm_id[adress + pos] = id;
-        pos++;
+        vm_id[normalize_vm_index(adress + pos)] = id;
+        pos += 1;
     }
 }
 
