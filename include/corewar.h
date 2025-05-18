@@ -115,7 +115,7 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
     champion_t *champ);
 
 // Corewar funcions //
-int update_vm(war_t *war, win_t *manager);
+int update_vm(war_t *war);
 void dump(unsigned char *vm);
 int handle_champ(war_t *war, champion_t *champ);
 int handle_process(war_t *war, champion_t *champ, process_t *process);
@@ -170,5 +170,6 @@ void event(int input, war_t *war, win_t *manager);
 void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);
 void disp_winner_ncurse(war_t *war);
+void display_death(champion_t *champ, int id);
 
 #endif /* COREWAR_H_ */

@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-int update_vm(war_t *war, win_t *manager)
+int update_vm(war_t *war)
 {
     for (int i = 0; i < war->nb_champ; i++) {
         if (war->champs[i]->alive) {

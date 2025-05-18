@@ -7,6 +7,33 @@
 
 #include "corewar.h"
 
+void display_death(champion_t *champ, int id)
+{
+    WINDOW *b_death = subwin(stdscr, 5, 40, LINES / 2 - 4, COLS / 2 - 25);
+    WINDOW *death = derwin(b_death, 3, 38, 1, 1);
+    int x_max = 0; int y_max = 0;
+
+    getmaxyx(death, y_max, x_max);
+    for (int i = 0; i < x_max; i++)
+        for (int j = 0; j < y_max; j++)
+            mvwprintw(death, j, i, " ");
+    box(b_death, ACS_VLINE, ACS_HLINE);
+    mvwprintw(b_death, 0, 13, "Death message");
+    wattron(death, COLOR_PAIR(RED));
+    wmove(death, 1, 0);
+    wprintw(death, "The champion ");
+    wattron(death, COLOR_PAIR(id));
+    wprintw(death, "%s", champ->name);
+    wattron(death, COLOR_PAIR(RED));
+    wprintw(death, " has perished.");
+    wattron(death, COLOR_PAIR(COLOR_4));
+    wrefresh(b_death);
+    wrefresh(death);
+    sleep(3);
+    delwin(b_death);
+    delwin(death);
+}
+
 static void close_all(war_t *war, win_t *manager)
 {
     free_war(war);
