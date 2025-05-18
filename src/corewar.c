@@ -16,9 +16,6 @@ static void init_id(war_t *war)
         for (int j = 0; j < war->champs[i]->size; j++)
             war->vm_id[start + j] = i + 1;
     }
-    //for (int i = 0; i < MEM_SIZE; i++)
-    //    printf("%i", war->vm_id[i]);
-    //printf("\n");
 }
 
 int corewar(war_t *war)
