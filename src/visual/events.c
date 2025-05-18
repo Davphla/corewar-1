@@ -13,6 +13,7 @@ void display_death(champion_t *champ, int id)
     WINDOW *death = derwin(b_death, 3, 38, 1, 1);
     int x_max = 0; int y_max = 0;
 
+    beep();
     getmaxyx(death, y_max, x_max);
     for (int i = 0; i < x_max; i++)
         for (int j = 0; j < y_max; j++)
