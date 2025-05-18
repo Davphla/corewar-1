@@ -51,7 +51,7 @@ win_t init_manager(int full)
         manager.hist = NULL;
     }
     box(manager.b_player, ACS_VLINE, ACS_HLINE);
-    mvwprintw(manager.b_player, 0, 2, "Players");
+    mvwprintw(manager.b_player, 0, 2, "Champions");
 
     box(manager.b_vm, ACS_VLINE, ACS_HLINE);
     mvwprintw(manager.b_vm, 0, 2, "Arena");

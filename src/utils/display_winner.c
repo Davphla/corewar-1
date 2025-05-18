@@ -30,7 +30,6 @@ static void display_win_ncurse(int nb_cycle, char *name)
     sleep(8);
     delwin(b_win);
     delwin(win);
-    return;
 }
 
 static int display_prompt(int nb_cycle, int id, char *name)
@@ -58,8 +57,5 @@ int display_winner(war_t *war)
 
 void disp_winner_ncurse(war_t *war)
 {
-    if (!war->last_to_live)
-        display_prompt(war->cycle, 0, "");
-    else
-        display_win_ncurse(war->cycle, war->last_to_live->name);
+    display_win_ncurse(war->cycle, war->last_to_live->name);
 }

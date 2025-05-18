@@ -137,7 +137,6 @@ static int parse_args(int ac, char *argv[], war_t *war)
 war_t *init_war(int ac, char *argv[])
 {
     war_t *war = init_struct_war();
-    char *vm = NULL;
 
     if (war == NULL)
         return NULL;
@@ -147,7 +146,6 @@ war_t *init_war(int ac, char *argv[])
         return NULL;
     }
     if (parse_args(ac, argv, war) == -1) {
-        free(vm);
         free(war);
         return NULL;
     }
