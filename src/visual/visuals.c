@@ -32,7 +32,7 @@ static void print_shortcut(void)
     attroff(COLOR_PAIR(COLOR_4));
 }
 
-static void print_vm(WINDOW *vm, war_t *war)
+static void print_vm(WINDOW *vm, war_t *war, int *pos)
 {
     unsigned char hexa[2];
     int x = 0; int y = 0;
@@ -49,8 +49,13 @@ static void print_vm(WINDOW *vm, war_t *war)
             else
                 hexa[j] = hexa[j] + 65 - 10;
         }
+        if (pos[i] != 0)
+            wattron(vm, COLOR_PAIR(pos[i] + 4));
+        else
+            wattron(vm, COLOR_PAIR(war->vm_id[i]));
+        wprintw(vm, "%c", hexa[0]);
         wattron(vm, COLOR_PAIR(war->vm_id[i]));
-        wprintw(vm, "%s", hexa);
+        wprintw(vm, "%c", hexa[1]);
         wattroff(vm, COLOR_PAIR(war->vm_id[i]));
         getyx(vm, y, x);
         if (x > x_max - 3)
@@ -125,10 +130,19 @@ static void refresh_win(int full, win_t *manager)
     print_shortcut();
 }
 
+void get_cursor_pos(war_t *war, int *pos)
+{
+    for (int i = 0; i < war->nb_champ; i++) {
+        for (llist_t *temp = war->champs[i]->process_list; temp != NULL; temp = temp->next)
+            pos[((process_t *)temp->data)->PC] = i + 1;
+    }
+}
+
 void ncurse_gameboard(war_t *war, win_t *manager)
 {
     static int init = 0;
     int input = 0;
+    int cursor_pos[MEM_SIZE] = {0};
 
     if ((COLS < 250 && LINES < 60 && war->full == 0) || (COLS < 128 * 3 + 1 && LINES < 37))
         size_error();
@@ -136,8 +150,9 @@ void ncurse_gameboard(war_t *war, win_t *manager)
         *manager = init_manager(war->full);
         init = 1;
     }
+    get_cursor_pos(war, cursor_pos);
     print_player(manager->player, war, manager);
-    print_vm(manager->vm, war);
+    print_vm(manager->vm, war, cursor_pos);
     if (war->full == 0)
         print_history(manager->hist);
     while (manager->pause == true) {
