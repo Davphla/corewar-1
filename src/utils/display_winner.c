@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-static void display_win_ncurse(int nb_cycle, char *name)
+static void display_win_ncurse(int nb_cycle, char *name, int id)
 {
     WINDOW *b_win = subwin(stdscr, 7, 40, LINES / 2 - 4, COLS / 2 - 25);
     WINDOW *win = derwin(b_win, 5, 38, 1, 1);
@@ -23,7 +23,7 @@ static void display_win_ncurse(int nb_cycle, char *name)
     mvwprintw(b_win, 0, 13, "Congratulation");
     wattron(win, COLOR_PAIR(GREEN));
     wmove(win, 1, 0);
-    wprintw(win, "%s, You stood up against the greatest of all in %i cycle, well done !", name, nb_cycle);
+    wprintw(win, "Champion %s(%i), You stood up against the greatest of all in %i cycle, well done !", name, id, nb_cycle);
     wattron(win, COLOR_PAIR(COLOR_4));
     wrefresh(b_win);
     wrefresh(win);
@@ -57,5 +57,5 @@ int display_winner(war_t *war)
 
 void disp_winner_ncurse(war_t *war)
 {
-    display_win_ncurse(war->cycle, war->last_to_live->name);
+    display_win_ncurse(war->cycle, war->last_to_live->name, war->last_to_live->id);
 }

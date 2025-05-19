@@ -40,5 +40,6 @@ int i_sub(war_t *war, __attribute_maybe_unused__ champion_t *champ,
     process->reg[tot_register - 1] =
         process->reg[arg_register1 - 1] - process->reg[arg_register2 - 1];
     set_carry(process, process->reg[tot_register - 1]);
+    add_history("sub", champ->id);
     return 0;
 }

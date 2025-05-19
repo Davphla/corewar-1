@@ -77,5 +77,6 @@ int i_ldi(war_t *war, __attribute_maybe_unused__ champion_t *champ,
         return reset_pc_and_return(process, begin_pc);
     S = set_params(war->vm, params, begin_pc, coding_byte);
     process->reg[register_index - 1] = get_direct(war->vm, &S);
+    add_history("ldi", champ->id);
     return set_carry(process, process->reg[register_index - 1]);
 }

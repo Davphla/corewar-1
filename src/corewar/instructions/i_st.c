@@ -65,6 +65,7 @@ int i_st(war_t *war, __attribute_maybe_unused__ champion_t *champ,
     arg_value = get_value(coding_byte.first, process, war, &error);
     if (error == -1)
         return reset_pc_and_return(process, begin_pc);
+    add_history("st", champ->id);
     if (coding_byte.second == 1) {
         return handle_reg(war, process, begin_pc, arg_value);
     } else {

@@ -27,11 +27,14 @@ int i_live(war_t *war, champion_t *champ, process_t *process)
     for (int i = 0; i < war->nb_champ; i++) {
         if (war->champs[i]->id == live_champ_id) {
             war->champs[i]->to_die = 0;
-            //display_prompt(war->champs[i]->id, war->champs[i]->name);
+            if (war->visual == 0)
+                display_prompt(war->champs[i]->id, war->champs[i]->name);
             war->last_to_live = champ;
             return 0;
         }
     }
-    //display_prompt(live_champ_id, "");
+    if (war->visual == 0)
+        display_prompt(live_champ_id, "");
+    add_history("live", champ->id);
     return -1;
 }

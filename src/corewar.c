@@ -37,6 +37,7 @@ int corewar(war_t *war)
         disp_winner_ncurse(war);
         endwin();
     }
+    free_hist();
     display_winner(war);
     return 0;
 }

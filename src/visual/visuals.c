@@ -25,43 +25,6 @@ static void size_error(void)
     delwin(border);
 }
 
-win_t init_manager(int full)
-{
-    win_t manager = {0};
-
-    if (full == 0) {
-        manager.b_player = subwin(stdscr, 6, COLS - 15, 0, 0);
-        manager.player = derwin(manager.b_player, 4, COLS - 17, 1, 1);
-
-        manager.b_vm = subwin(stdscr, LINES - 7, COLS - 15, 6, 0);
-        manager.vm = derwin(manager.b_vm, LINES - 9, COLS - 17, 1, 1);
-
-        manager.b_hist = subwin(stdscr, LINES - 1, 14, 0, COLS - 14);
-        manager.hist = derwin(manager.b_hist, 14, LINES - 2, 1, 1);
-        box(manager.b_hist, ACS_VLINE, ACS_HLINE);
-        mvwprintw(manager.b_hist, 0, 2, "History");
-    } else {
-        manager.b_player = subwin(stdscr, 8, COLS - 15, 0, 0);
-        manager.player = derwin(manager.b_player, 6, COLS - 17, 1, 1);
-
-        manager.b_vm = subwin(stdscr, LINES - 1, COLS, 0, 0);
-        manager.vm = derwin(manager.b_vm, LINES - 3, COLS - 2, 1, 1);
-
-        manager.b_hist = NULL;
-        manager.hist = NULL;
-    }
-    box(manager.b_player, ACS_VLINE, ACS_HLINE);
-    mvwprintw(manager.b_player, 0, 2, "Champions");
-
-    box(manager.b_vm, ACS_VLINE, ACS_HLINE);
-    mvwprintw(manager.b_vm, 0, 2, "Arena");
-
-    manager.tog_player = false;
-    manager.pause = true;
-    manager.speed = 50;
-    return manager;
-}
-
 static void print_shortcut(void)
 {
     attron(COLOR_PAIR(COLOR_4));
@@ -139,7 +102,8 @@ static void print_player(WINDOW *player, war_t *war, win_t *manager)
         wprintw(player, "Nb_Process = %i", len_list(war->champs[i]->process_list));
         wattroff(player, COLOR_PAIR(i + 1));
     }
-    wrefresh(player);
+    if (war->full == 0)
+        wrefresh(player);
     return;
 }
 
@@ -173,6 +137,7 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     }
     print_player(manager->player, war, manager);
     print_vm(manager->vm, war);
+    print_history(manager->hist);
     while (manager->pause == true) {
         event(input = getch(), war, manager);
         if (input == 's')

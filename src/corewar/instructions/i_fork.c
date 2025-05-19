@@ -16,5 +16,6 @@ int i_fork(war_t *war, champion_t *champ, process_t *process)
     new_pc = (begin_pc + get_ind(war->vm, &process->PC) % IDX_MOD) % MEM_SIZE;
     cat_list(&champ->process_list, create_node(process_dup(process, new_pc)),
         END);
+    add_history("fork", champ->id);
     return 0;
 }

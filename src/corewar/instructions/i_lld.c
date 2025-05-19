@@ -60,5 +60,6 @@ int i_lld(war_t *war, __attribute_maybe_unused__ champion_t *champ,
     process->reg[register_index - 1] =
         set_register_value(begin_pc, arg_value, war, coding_byte.first);
     set_carry(process, process->reg[register_index - 1]);
+    add_history("lld", champ->id);
     return 0;
 }

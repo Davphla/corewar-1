@@ -57,6 +57,11 @@ typedef struct win_s {
     int speed;
 } win_t;
 
+typedef struct hist_s {
+    char *instr;
+    int id;
+} hist_t;
+
 // Struct for champ process //
 typedef struct process_s {
     int reg[REG_NUMBER];
@@ -171,5 +176,8 @@ void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);
 void disp_winner_ncurse(war_t *war);
 void display_death(champion_t *champ, int id);
+void add_history(char *instr, int id);
+void print_history(WINDOW *hist);
+void free_hist(void);
 
 #endif /* COREWAR_H_ */

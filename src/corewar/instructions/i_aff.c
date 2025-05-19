@@ -22,6 +22,7 @@ int i_aff(war_t *war, __attribute_maybe_unused__ champion_t *champ,
         process->PC = begin_pc + 1;
         return -1;
     }
+    add_history("aff", champ->id);
     //my_putchar(process->reg[register_index - 1] % 256);
     //my_putchar('\n');
     return 0;
