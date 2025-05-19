@@ -97,7 +97,8 @@ static void print_player(WINDOW *player, war_t *war, win_t *manager)
         wprintw(player, "  ");
         wattron(player, COLOR_PAIR(i + 1));
         wmove(player, 2, column);
-        wprintw(player, "Cycle Left = %i", war->cycle_to_die - war->champs[i]->to_die);
+        int cycle_left = war->cycle_to_die - war->champs[i]->to_die;
+        wprintw(player, "Cycle Left = %i", cycle_left > 0 ? cycle_left : 0);
         wmove(player, 3, column);
         wprintw(player, "Nb_Process = %i", len_list(war->champs[i]->process_list));
         wattroff(player, COLOR_PAIR(i + 1));
