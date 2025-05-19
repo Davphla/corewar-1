@@ -102,7 +102,7 @@ static void print_player(WINDOW *player, war_t *war, win_t *manager)
         wprintw(player, "Nb_Process = %i", len_list(war->champs[i]->process_list));
         wattroff(player, COLOR_PAIR(i + 1));
     }
-    if (war->full == 0)
+    if (war->full == 0 || (war->full == 1 && manager->tog_player == true))
         wrefresh(player);
     return;
 }
@@ -129,7 +129,7 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     static int init = 0;
     int input = 0;
 
-    if ((COLS < 250 && LINES < 45 && war->full == 0) || (COLS < 128 * 3 + 1 && LINES < 37))
+    if ((COLS < 250 && LINES < 60 && war->full == 0) || (COLS < 128 * 3 + 1 && LINES < 37))
         size_error();
     if (init == 0) {
         *manager = init_manager(war->full);
@@ -137,7 +137,8 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     }
     print_player(manager->player, war, manager);
     print_vm(manager->vm, war);
-    print_history(manager->hist);
+    if (war->full == 0)
+        print_history(manager->hist);
     while (manager->pause == true) {
         event(input = getch(), war, manager);
         if (input == 's')

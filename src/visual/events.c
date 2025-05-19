@@ -57,6 +57,9 @@ void event(int input, war_t *war, win_t *manager)
     case ' ':
         manager->pause = manager->pause == true ? false : true;
         break;
+    case 'p':
+        manager->tog_player = manager->tog_player == true ? false : true;
+        break;
     case KEY_UP:
         manager->speed += 2;
         break;
