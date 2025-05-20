@@ -134,7 +134,7 @@ void get_cursor_pos(war_t *war, int *pos)
 {
     for (int i = 0; i < war->nb_champ; i++) {
         for (llist_t *temp = war->champs[i]->process_list; temp != NULL; temp = temp->next)
-            pos[((process_t *)temp->data)->PC] = war->champs[i]->alive == false ? 0 : i + 1;
+            pos[normalize_vm_index(((process_t *)temp->data)->PC)] = war->champs[i]->alive == false ? 0 : i + 1;
     }
 }
 
