@@ -45,6 +45,12 @@
 
     #define FULLSCREEN 0
 
+    #define ANSI_RESET "\033[0m"
+    #define ANSI_RED "\033[31m"
+    #define ANSI_GREEN "\033[32m"
+    #define ANSI_BLUE "\033[33m"
+    #define ANSI_YELLOW "\033[34m"
+
 typedef struct win_s {
     WINDOW *b_player;
     WINDOW *player;
@@ -121,7 +127,7 @@ int parse_champ(unsigned char *vm, int adress, char *champ_name,
 
 // Corewar funcions //
 int update_vm(war_t *war);
-void dump(unsigned char *vm);
+void dump(unsigned char *vm, int *id);
 int handle_champ(war_t *war, champion_t *champ);
 int handle_process(war_t *war, champion_t *champ, process_t *process);
 // Instructions //
@@ -174,10 +180,11 @@ win_t init_manager(int full);
 void event(int input, war_t *war, win_t *manager);
 void ncurse_gameboard(war_t *war, win_t *manager);
 void init_visuals(war_t *war);
-void disp_winner_ncurse(war_t *war);
+void disp_winner_ncurse(war_t *war, win_t *manager);
 void display_death(champion_t *champ, int id);
 void add_history(char *instr, int id);
 void print_history(WINDOW *hist);
 void free_hist(void);
+void ask_save(war_t *war, win_t *manager);
 
 #endif /* COREWAR_H_ */

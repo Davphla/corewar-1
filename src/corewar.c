@@ -14,7 +14,7 @@ static void init_id(war_t *war)
     for (int i = 0; i < war->nb_champ; i++) {
         start = war->champs[i]->adress;
         for (int j = 0; j < war->champs[i]->size; j++)
-            war->vm_id[start + j] = i + 1;
+            war->vm_id[normalize_vm_index(start + j)] = i + 1;
     }
 }
 
@@ -31,11 +31,10 @@ int corewar(war_t *war)
         if (check_winner(war))
             break;
         if (war->dump != -1 && war->cycle % war->dump == 0)
-            dump(war->vm);
+            dump(war->vm, war->vm_id);
     }
     if (war->visual == 1) {
-        disp_winner_ncurse(war);
-        endwin();
+        disp_winner_ncurse(war, &manager);
     }
     free_hist();
     display_winner(war);

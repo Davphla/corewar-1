@@ -28,6 +28,7 @@ static void size_error(void)
 static void print_shortcut(void)
 {
     attron(COLOR_PAIR(COLOR_4));
+    move(LINES - 1, 0);
     printw("<space>: Stop/Continue <Up/Down>: Change Speed | <q>: Quit | <p>: Show Players | <s>: advance 1 cycle");
     attroff(COLOR_PAIR(COLOR_4));
 }
@@ -54,6 +55,7 @@ static void print_vm(WINDOW *vm, war_t *war, int *pos)
         else
             wattron(vm, COLOR_PAIR(war->vm_id[i]));
         wprintw(vm, "%c", hexa[0]);
+        wattroff(vm, COLOR_PAIR(pos[i] + 4));
         wattron(vm, COLOR_PAIR(war->vm_id[i]));
         wprintw(vm, "%c", hexa[1]);
         wattroff(vm, COLOR_PAIR(war->vm_id[i]));
@@ -156,17 +158,17 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     if (war->full == 0)
         print_history(manager->hist);
     while (manager->pause == true) {
+        refresh_win(war->full, manager);
         event(input = getch(), war, manager);
         if (input == 's')
             break;
     }
     event(getch(), war, manager);
-    move(LINES - 1, 0);
     refresh_win(war->full, manager);
 
     if (manager->speed < 1)
         manager->speed = 1;
     if (manager->speed > 100)
         manager->speed = 100;
-    usleep((100 - manager->speed) * 1000);
+    usleep((100 - manager->speed) * 800);
 }

@@ -56,7 +56,8 @@ int display_winner(war_t *war)
     return 0;
 }
 
-void disp_winner_ncurse(war_t *war)
+void disp_winner_ncurse(war_t *war, win_t *manager)
 {
     display_win_ncurse(war->cycle, war->last_to_live->name, war->last_to_live->id);
+    ask_save(war, manager);
 }

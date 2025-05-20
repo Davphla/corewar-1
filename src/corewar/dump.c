@@ -23,9 +23,12 @@ void display_hexa(unsigned char c)
     my_putchar(' ');
 }
 
-void dump(unsigned char *vm)
+void dump(unsigned char *vm, int *id)
 {
+    char *colors[5] = {ANSI_RESET, ANSI_RED, ANSI_GREEN, ANSI_YELLOW, ANSI_BLUE};
+
     for (int i = 0; i < MEM_SIZE; i++) {
+        my_putstr(colors[id[i]]);
         display_hexa(vm[i]);
         if ((i + 1) % 32 == 0)
             my_putchar('\n');
