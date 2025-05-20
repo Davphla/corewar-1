@@ -13,6 +13,7 @@ static void display_win_ncurse(int nb_cycle, char *name, int id)
     WINDOW *win = derwin(b_win, 5, 38, 1, 1);
     int x_max = 0; int y_max = 0;
 
+    beep();
     getmaxyx(win, y_max, x_max);
     for (int i = 0; i < x_max; i++)
         for (int j = 0; j < y_max; j++)
