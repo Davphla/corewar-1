@@ -122,12 +122,12 @@ static void refresh_win(int full, win_t *manager)
         wrefresh(manager->player);
         wrefresh(manager->hist);
     } else {
-        wrefresh(manager->b_vm);
-        wrefresh(manager->vm);
         if (manager->tog_player == true) {
             wrefresh(manager->b_player);
             wrefresh(manager->player);
         }
+        wrefresh(manager->b_vm);
+        wrefresh(manager->vm);
     }
     print_shortcut();
 }
@@ -158,7 +158,6 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     if (war->full == 0)
         print_history(manager->hist);
     while (manager->pause == true) {
-        refresh_win(war->full, manager);
         event(input = getch(), war, manager);
         if (input == 's')
             break;
