@@ -29,7 +29,7 @@ static void print_shortcut(void)
 {
     attron(COLOR_PAIR(COLOR_4));
     move(LINES - 1, 0);
-    printw("<space>: Stop/Continue <Up/Down>: Change Speed | <q>: Quit | <p>: Show Players | <s>: advance 1 cycle");
+    printw("<space>: Stop/Continue <Up/Down>: Change Speed | <q>: Quit | <p>: Show Players (Only On Full Screen Mode) | <s>: Advance 1 Cycle");
     attroff(COLOR_PAIR(COLOR_4));
 }
 
@@ -122,12 +122,12 @@ static void refresh_win(int full, win_t *manager)
         wrefresh(manager->player);
         wrefresh(manager->hist);
     } else {
+        wrefresh(manager->b_vm);
+        wrefresh(manager->vm);
         if (manager->tog_player == true) {
             wrefresh(manager->b_player);
             wrefresh(manager->player);
         }
-        wrefresh(manager->b_vm);
-        wrefresh(manager->vm);
     }
     print_shortcut();
 }
@@ -158,6 +158,7 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     if (war->full == 0)
         print_history(manager->hist);
     while (manager->pause == true) {
+        refresh_win(war->full, manager);
         event(input = getch(), war, manager);
         if (input == 's')
             break;
