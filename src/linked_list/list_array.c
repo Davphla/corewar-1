@@ -40,7 +40,7 @@ char **list_to_arr(llist_t **list)
 
 int len_list(llist_t *list)
 {
-    int len = 1;
+    int len = 0;
 
     while (list != NULL) {
         len++;
