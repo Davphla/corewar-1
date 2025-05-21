@@ -23,8 +23,8 @@ win_t init_manager(int full)
         box(manager.b_hist, ACS_VLINE, ACS_HLINE);
         mvwprintw(manager.b_hist, 0, 2, "History");
     } else {
-        manager.b_player = subwin(stdscr, 8, COLS, 0, 0);
-        manager.player = derwin(manager.b_player, 6, COLS - 2, 1, 1);
+        manager.b_player = subwin(stdscr, 6, COLS, LINES / 2 - 2, 0);
+        manager.player = derwin(manager.b_player, 4, COLS - 2, 1, 1);
 
         manager.b_vm = subwin(stdscr, LINES - 1, COLS, 0, 0);
         manager.vm = derwin(manager.b_vm, LINES - 3, COLS - 2, 1, 1);

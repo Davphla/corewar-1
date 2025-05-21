@@ -88,10 +88,12 @@ void event(int input, war_t *war, win_t *manager)
         exit(0);
         break;
     case ' ':
+        manager->tog_player = false;
         manager->pause = manager->pause == true ? false : true;
         break;
     case 'p':
         manager->tog_player = manager->tog_player == true ? false : true;
+        manager->pause = true;
         break;
     case KEY_UP:
         manager->speed += 2;

@@ -41,6 +41,7 @@ static void print_vm(WINDOW *vm, war_t *war, int *pos)
 
     getmaxyx(vm, y_max, x_max);
     werase(vm);
+    (void)(y_max);
     for (int i = 0; i < MEM_SIZE; i++) {
         hexa[0] = war->vm[i] / 16;
         hexa[1] = war->vm[i] % 16;
@@ -76,6 +77,7 @@ static void print_player(WINDOW *player, war_t *war, win_t *manager)
     werase(player);
     getmaxyx(player, y_max, x_max);
 
+    (void)(y_max);
     wprintw(player, "   Cycle = %i", war->cycle);
     wmove(player, 1, 0);
     wprintw(player, "Cycle to die = %i", war->cycle_to_die);
@@ -120,13 +122,14 @@ static void refresh_win(int full, win_t *manager)
     if (full == 0) {
         wrefresh(manager->vm);
         wrefresh(manager->player);
+        wrefresh(manager->b_player);
         wrefresh(manager->hist);
     } else {
         wrefresh(manager->b_vm);
         wrefresh(manager->vm);
         if (manager->tog_player == true) {
-            wrefresh(manager->b_player);
             wrefresh(manager->player);
+            wrefresh(manager->b_player);
         }
     }
     print_shortcut();
@@ -158,10 +161,13 @@ void ncurse_gameboard(war_t *war, win_t *manager)
     if (war->full == 0)
         print_history(manager->hist);
     while (manager->pause == true) {
-        refresh_win(war->full, manager);
-        event(input = getch(), war, manager);
+        event(getch(), war, manager);
         if (input == 's')
             break;
+        if (manager->tog_player == true || war->full == 0) {
+            print_player(manager->player, war, manager);
+            wrefresh(manager->player);
+        }
     }
     event(getch(), war, manager);
     refresh_win(war->full, manager);

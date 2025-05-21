@@ -33,4 +33,5 @@ void dump(unsigned char *vm, int *id)
         if ((i + 1) % 32 == 0)
             my_putchar('\n');
     }
+    my_putstr(ANSI_RESET);
 }
