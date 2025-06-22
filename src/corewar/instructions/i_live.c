@@ -28,7 +28,7 @@ int i_live(war_t *war, champion_t *champ, process_t *process)
         if (war->champs[i]->id == live_champ_id) {
             war->champs[i]->to_die = 0;
             display_prompt(war->champs[i]->id, war->champs[i]->name);
-            war->last_to_live = champ;
+            war->last_to_live = war->champs[i];
             return 0;
         }
     }
